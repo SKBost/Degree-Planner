@@ -19,7 +19,7 @@ public class Course { //NOTES: test base class; TODO: need to add prereqs class 
     public Course(String myDept, String myCode) {
         dept = myDept;
         code = myCode;
-        option = UNCOUNTED;
+        option = GradingOption.UNCOUNTED;
         units = 0;
         notes = "";
     }
