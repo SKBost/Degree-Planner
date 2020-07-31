@@ -1,4 +1,4 @@
-package com.example.degreeplanner.ui.dashboard;
+package com.example.degreeplanner.ui.requirements;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.degreeplanner.R;
 
-public class DashboardFragment extends Fragment {
+public class RequirementsFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private RequirementsViewModel requirementsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        requirementsViewModel =
+                ViewModelProviders.of(this).get(RequirementsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_requirements, container, false);
+        final TextView textView = root.findViewById(R.id.text_requirements);
+        requirementsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

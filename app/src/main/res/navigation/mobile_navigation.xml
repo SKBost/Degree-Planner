@@ -12,14 +12,21 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.degreeplanner.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_requirements"
+        android:name="com.example.degreeplanner.ui.requirements.RequirementsFragment"
+        android:label="@string/title_requirements"
+        tools:layout="@layout/fragment_requirements" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.degreeplanner.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_resources"
+        android:name="com.example.degreeplanner.ui.resources.ResourcesFragment"
+        android:label="@string/title_resources"
+        tools:layout="@layout/fragment_resources" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.degreeplanner.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
 </navigation>

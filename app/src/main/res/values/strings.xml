@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Degree Planner</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_requirements">Requirements</string>
+    <string name="title_resources">Resources</string>
+    <string name="major">Major</string>
+    <string name="minor">Minor</string>
+    <string name="college">College</string>
+    <string name="enter_minor">Enter minor</string>
+    <string name="enter_major">Enter major</string>
+    <string name="enter_college">Enter college</string>
+    <string name="enter_incoming_year">Enter incoming year</string>
+    <string name="incoming_year">Incoming Year</string>
+    <string name="get_started">Get Started!</string>
+    <string name="welcome_screen">Welcome Screen</string>
+    <string name="title_profile">Profile</string>
 </resources>
