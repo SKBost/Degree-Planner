@@ -14,4 +14,16 @@
     <string name="get_started">Get Started!</string>
     <string name="welcome_screen">Welcome Screen</string>
     <string name="title_profile">Profile</string>
+    <string name="new_requirement">New Requirement</string>
+    <string name="prequisites">Prerequisites</string>
+    <string name="overlap_requirement">Overlap Requirement</string>
+    <string name="notes">Notes</string>
+    <string name="department">Department</string>
+    <string name="course_code">Course Code</string>
+    <string name="units">Units</string>
+    <string name="p_np">Pass/No Pass</string>
+    <string name="save">Save</string>
+    <string name="button_desc">Close Page</string>
+    <string name="enter_department">Enter department</string>
+    <string name="enter_course_code">Enter course code</string>
 </resources>

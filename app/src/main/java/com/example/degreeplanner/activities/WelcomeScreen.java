@@ -17,8 +17,8 @@ public class WelcomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
-        //Move to home screen once button is pressed
-        Button button = (Button) findViewById(R.id.button);
+        // Move to home screen once button is pressed
+        Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -27,6 +27,9 @@ public class WelcomeScreen extends AppCompatActivity {
         });
     }
 
+    /*
+     * Function to open home screen
+     */
     public void openHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
