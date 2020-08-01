@@ -2,21 +2,67 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/page_resources"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.resources.ResourcesFragment">
 
-    <TextView
-        android:id="@+id/text_resources"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/college_advising_button"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:background="@drawable/resource_college_button"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/college_advising"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:tint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/department_advising_button"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/resource_department_button"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/department_advising"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/college_advising_button" />
+
+    <Button
+        android:id="@+id/ucsd_catalog_button"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/resource_catalog_button"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/ucsd_catalog"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/department_advising_button" />
+
+    <Button
+        android:id="@+id/webreg_button"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/resource_webreg_button"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/webreg"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ucsd_catalog_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

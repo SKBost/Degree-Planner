@@ -78,6 +78,7 @@
             android:inputType="textPersonName"
             android:text="@string/department"
             android:textSize="14sp"
+            android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="@+id/text_new_requirement"
             app:layout_constraintTop_toBottomOf="@+id/text_new_requirement" />
 
@@ -92,6 +93,7 @@
             android:inputType="textPersonName"
             android:text="@string/course_code"
             android:textSize="14sp"
+            android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="@+id/text_department"
             app:layout_constraintTop_toBottomOf="@+id/text_department" />
 
@@ -106,6 +108,7 @@
             android:inputType="number"
             android:text="@string/units"
             android:textSize="14sp"
+            android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="@+id/text_course_code"
             app:layout_constraintTop_toBottomOf="@+id/text_course_code" />
 
@@ -131,6 +134,7 @@
             android:inputType="textPersonName"
             android:text="@string/department"
             android:textSize="14sp"
+            android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="@+id/text_prerequisites"
             app:layout_constraintTop_toBottomOf="@+id/text_prerequisites" />
 
@@ -145,6 +149,7 @@
             android:inputType="textPersonName"
             android:text="@string/course_code"
             android:textSize="14sp"
+            android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="@+id/text_preq_department"
             app:layout_constraintTop_toBottomOf="@+id/text_preq_department" />
 
@@ -167,6 +172,7 @@
             android:inputType="textPersonName"
             android:text="@string/notes"
             android:textSize="18sp"
+            android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="@+id/spinner"
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
