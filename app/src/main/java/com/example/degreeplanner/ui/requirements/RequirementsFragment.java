@@ -49,7 +49,7 @@ public class RequirementsFragment extends Fragment {
     }
 
     /*
-     * Function to open the add requirements page on click
+            * Function to open the add requirements page on click
      */
     public void openAddReq() {
         Intent intent = new Intent(getActivity(), AddRequirement.class);

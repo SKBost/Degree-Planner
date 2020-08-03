@@ -7,16 +7,83 @@
     tools:context=".ui.profile.ProfileFragment">
 
     <TextView
-        android:id="@+id/profile_notifications"
-        android:layout_width="match_parent"
+        android:id="@+id/text_college"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/college"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_text_college"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:inputType="textPersonName"
+        android:text="@string/college"
+        android:textSize="14sp"
+        android:importantForAutofill="no"
+        android:hint="@string/enter_college"
+        app:layout_constraintStart_toStartOf="@+id/text_college"
+        app:layout_constraintTop_toBottomOf="@+id/text_college" />
+
+    <TextView
+        android:id="@+id/text_major"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/major"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_college"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_college" />
+
+    <EditText
+        android:id="@+id/edit_text_major"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:inputType="textPersonName"
+        android:text="@string/major"
+        android:textSize="14sp"
+        android:importantForAutofill="no"
+        android:hint="@string/enter_major"
+        app:layout_constraintStart_toStartOf="@+id/text_major"
+        app:layout_constraintTop_toBottomOf="@+id/text_major" />
+
+    <TextView
+        android:id="@+id/text_minor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/minor"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_major"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_major" />
+
+    <EditText
+        android:id="@+id/edit_text_minor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:inputType="textPersonName"
+        android:text="@string/minor"
+        android:textSize="14sp"
+        android:importantForAutofill="no"
+        android:hint="@string/enter_minor"
+        app:layout_constraintStart_toStartOf="@+id/text_minor"
+        app:layout_constraintTop_toBottomOf="@+id/text_minor" />
 </androidx.constraintlayout.widget.ConstraintLayout>

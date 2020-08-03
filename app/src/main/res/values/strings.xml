@@ -26,4 +26,8 @@
     <string name="button_desc">Close Page</string>
     <string name="enter_department">Enter department</string>
     <string name="enter_course_code">Enter course code</string>
+    <string name="college_advising">College Advising</string>
+    <string name="department_advising">Department Advising</string>
+    <string name="ucsd_catalog">UCSD Catalog</string>
+    <string name="webreg">Webreg</string>
 </resources>

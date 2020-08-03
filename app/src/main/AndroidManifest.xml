@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.resources.Webreg" />
+        <activity android:name=".ui.resources.UCSDCatalog" />
+        <activity android:name=".ui.resources.DepartmentAdvising" />
+        <activity android:name=".ui.resources.CollegeAdvising" />
         <activity android:name=".activities.AddRequirement" />
         <activity
             android:name=".activities.WelcomeScreen"
