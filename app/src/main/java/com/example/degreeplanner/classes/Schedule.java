@@ -22,6 +22,7 @@ public class Schedule { // Notes: refer to the structure of quarter-by-quarter w
     // setters
     public void setQuarters(ArrayList<Quarter> newQuarters) { quarters = newQuarters;}
 
+    // get total units for every quarter
     public double getTotalUnits() {
         double totalUnits = 0;
         for (int i = 0; i < quarters.size(); i++) {
