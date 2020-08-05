@@ -10,13 +10,14 @@ public class Quarter { // NOTE: important rule: assume input is always correct (
     // constructors (use whichever suits your purposes; you can set any part of this class later)
 
     // minimal
-    public Quarter() {
+    public Quarter() { // note: null fields exist for this option
         courses = new ArrayList<Course>();
     }
 
     public Quarter(int myIndex, String myName) {
         index = myIndex;
         name = myName;
+        courses = new ArrayList<Course>();
     }
 
     // maximal

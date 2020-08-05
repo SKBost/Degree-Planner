@@ -18,7 +18,7 @@ public class CourseTest {
     }*/
 
     @Test
-    public void testDefaultCourse() { // test getters and default values for course
+    public void testMinConstructor() { // test getters and default values for course
         Course course = new Course("COGS", "102C");
         assertEquals("COGS", course.getDept());
         assertEquals("102C", course.getCode());
@@ -28,7 +28,17 @@ public class CourseTest {
     }
 
     @Test
-    public void testCourseWithInfo() { // test setters for course
+    public void testMaxConstructor() { // test getters and default values for course
+        Course course = new Course("COGS", "102C", GradingOption.LETTER, 6.0, "Why is this class so many units?");
+        assertEquals("COGS", course.getDept());
+        assertEquals("102C", course.getCode());
+        assertEquals(6.0, course.getUnits());
+        assertEquals(GradingOption.LETTER, course.getOption());
+        assertEquals("Why is this class so many units?", course.getNotes());
+    }
+
+    @Test
+    public void testSetters() { // test setters for course
         // setup
         Course course = new Course("COGS", "102C");
         course.setDept("CSE");
