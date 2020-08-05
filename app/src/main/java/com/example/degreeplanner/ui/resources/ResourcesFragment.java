@@ -1,26 +1,17 @@
 package com.example.degreeplanner.ui.resources;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.degreeplanner.R;
-import com.example.degreeplanner.activities.AddRequirement;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ResourcesFragment extends Fragment {
 

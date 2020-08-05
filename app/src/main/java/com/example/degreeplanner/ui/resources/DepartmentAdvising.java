@@ -16,7 +16,6 @@ public class DepartmentAdvising extends AppCompatActivity {
         setContentView(R.layout.activity_department_advising);
 
         // Close page once button is pressed
-        /* note: commented out until you actually make this button so I can compile; TODO
         ImageButton closeButton = findViewById(R.id.department_back_button);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,6 +24,5 @@ public class DepartmentAdvising extends AppCompatActivity {
             }
         });
 
-         */
     }
 }
