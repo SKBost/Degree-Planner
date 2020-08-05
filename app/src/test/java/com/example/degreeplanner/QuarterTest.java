@@ -87,7 +87,7 @@ public class QuarterTest {
     }
 
 
-
+//TODO: add more tests
     /*
     @Test
     public void testMaxConstructor() { // test getters and default values for course
