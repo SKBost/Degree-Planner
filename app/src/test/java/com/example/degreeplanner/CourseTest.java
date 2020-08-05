@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 
 import static junit.framework.TestCase.assertEquals;
 
-@RunWith(AndroidJUnit4.class)
 public class CourseTest {
 
     /*@Before
@@ -25,15 +24,25 @@ public class CourseTest {
         assertEquals("102C", course.getCode());
         assertEquals(0.0, course.getUnits());
         assertEquals(GradingOption.UNCOUNTED, course.getOption());
+        assertEquals("", course.getNotes());
     }
-/*
+
     @Test
-    public void testCourseWithInfo() { // test setters for route
-        Route route = new Route();
+    public void testCourseWithInfo() { // test setters for course
+        // setup
+        Course course = new Course("COGS", "102C");
+        course.setDept("CSE");
+        course.setCode("110");
+        course.setUnits(4.0);
+        course.setOption(GradingOption.LETTER);
+        course.setNotes("please let me pass");
 
-        route.setName("Neighborhood Walk");
-
-        assertEquals(route.getName(), "Neighborhood Walk");
+        // testing
+        assertEquals("CSE", course.getDept());
+        assertEquals("110", course.getCode());
+        assertEquals(4.0, course.getUnits());
+        assertEquals(GradingOption.LETTER, course.getOption());
+        assertEquals("please let me pass", course.getNotes());
     }
-*/
+
 }

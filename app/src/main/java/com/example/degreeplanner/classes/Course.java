@@ -1,7 +1,6 @@
 package com.example.degreeplanner.classes;
 
 import com.example.degreeplanner.enums.GradingOption;
-import static com.example.degreeplanner.enums.GradingOption.UNCOUNTED;
 
 public class Course { //NOTES: test base class; TODO: need to add prereqs class and related method implemntations
 
@@ -38,6 +37,7 @@ public class Course { //NOTES: test base class; TODO: need to add prereqs class 
     public String getCode() { return code; }
     public double getUnits() { return units; }
     public GradingOption getOption() { return option; }
+    public String getNotes() { return notes; }
     //public ArrayList<Prerequisite> getPrereqs() { return prereqs; }
 
     // setters (note: packed together because they are trivial)
