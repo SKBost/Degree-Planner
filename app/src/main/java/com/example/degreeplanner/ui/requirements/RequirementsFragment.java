@@ -25,13 +25,15 @@ public class RequirementsFragment extends Fragment {
         requirementsViewModel =
                 ViewModelProviders.of(this).get(RequirementsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_requirements, container, false);
-        final TextView textView = root.findViewById(R.id.text_requirements);
-        requirementsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+        /*
+        // Display all user input courses
+        // Replace observer with course button object
+        requirementsViewModel.createCourseItem().observe(getViewLifecycleOwner(), new Observer<String>()) {
+
+        }
+
+         */
 
         // Move to add requirements screen once button is pressed
         FloatingActionButton addReqBtn = root.findViewById(R.id.add_requirement_button);
@@ -46,7 +48,7 @@ public class RequirementsFragment extends Fragment {
     }
 
     /*
-            * Function to open the add requirements page on click
+     * Function to open the add requirements page on click
      */
     public void openAddReq() {
         Intent intent = new Intent(getActivity(), AddRequirement.class);
