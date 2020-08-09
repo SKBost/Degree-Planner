@@ -8,7 +8,9 @@ public class RequirementCategory { // TODO: potentially add support for boolean 
 
     // constructors
 
-    public RequirementCategory() {} // null fields
+    public RequirementCategory() {
+        courses = new ArrayList<Course>();
+    } // null name field
 
     public RequirementCategory(String myName) {
         name = myName;
@@ -46,25 +48,63 @@ public class RequirementCategory { // TODO: potentially add support for boolean 
 
     public void addCourse(Course newCourse) {
         courses.add(newCourse);
+        // note: possibly add prevention of adding multiple of the same? todo
     }
 
-    public void removeCourse(Course deleted) {
-        courses.remove(deleted);
+    public void removeCourse(Course course) { // checking dept and code only
+        for(int i = 0; i < courses.size(); i++) {
+            // removes first match
+            if(courses.get(i).getDept().equals(course.getDept())
+                    && courses.get(i).getCode().equals(course.getCode())) {
+                courses.remove(i);
+                break;
+            }
+        }
+    }
+
+    public boolean containsCourse(Course course) { // checking dept and code only
+        //System.out.println("checking if this contains the course: " + course.getDept() + course.getCode());
+        for(int i = 0; i < courses.size(); i++) {
+            //System.out.println("testing the course: " + courses.get(i).getDept() + courses.get(i).getCode());
+            if(courses.get(i).getDept().equals(course.getDept())
+                    && courses.get(i).getCode().equals(course.getCode())) {
+                //System.out.println("breaking with true");
+                return true;
+            }
+        }
+        //System.out.println("didn't find it");
+        return false;
     }
 
     // get uncompleted courses in the requirement category, given a general list of completed courses
-    public ArrayList<Course> getUncompletedCourses(ArrayList<Course> completed) {
-        ArrayList<Course> uncompleted = new ArrayList<Course>();
+    public ArrayList<Course> getUncompletedCourses(ArrayList<Course> compList) {
+        ArrayList<Course> uncompList = new ArrayList<Course>();
 
+        // loop through required courses
         for(int i = 0; i < courses.size(); i++) {
-            if(!completed.contains(courses.get(i))) {
-                // add each course in this category to uncompleted course
-                // list if completed course list does not contain it
-                uncompleted.add(courses.get(i));
+            Course course = courses.get(i);
+            boolean matchFound = false;
+
+            // loop through completed courses
+            for(int j = 0; j < compList.size(); j++) {
+                Course compCourse = compList.get(j);
+               //System.out.println("comparing " + course.getDept() + course.getCode() + " against " + compCourse.getDept() + compCourse.getCode());
+
+                if (course.getDept().equals(compCourse.getDept())
+                        && course.getCode().equals(compCourse.getCode())) {
+                    matchFound = true;
+                  //  System.out.println("match found!");
+                    break;
+                }
+            }
+
+            if(!matchFound) {
+                uncompList.add(course);
+                //System.out.println("added to uncompList: " + course.getDept() + course.getCode());
             }
         }
 
-        return uncompleted;
+        return uncompList;
     }
 
 
