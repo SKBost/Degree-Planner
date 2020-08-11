@@ -9,6 +9,11 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.degreeplanner.R;
+import com.example.degreeplanner.classes.Course;
+import com.example.degreeplanner.enums.GradingOption;
+
+//import static com.example.degreeplanner.ui.requirements.RequirementsViewModel.allCourses;
+//import static com.example.degreeplanner.ui.requirements.RequirementsViewModel.allCoursesData;
 
 public class AddRequirement extends AppCompatActivity {
 
@@ -29,6 +34,7 @@ public class AddRequirement extends AppCompatActivity {
         final EditText department = (EditText) findViewById(R.id.text_department);
         final EditText course_code = (EditText) findViewById(R.id.text_course_code);
         final EditText units = (EditText) findViewById(R.id.number_units);
+        final EditText notes = (EditText) findViewById(R.id.text_notes);
 
 
         Button saveReq = (Button) findViewById(R.id.save_button);
@@ -40,28 +46,28 @@ public class AddRequirement extends AppCompatActivity {
                 String department_text = department.getText().toString();
                 String course_code_text = course_code.getText().toString();
                 String units_text = units.getText().toString();
+                String notes_text = notes.getText().toString();
 
                 /*
                 * Get all the input fields
                 * Write them using an API to your database
                 * Use Http handlers to write to the database
                 * */
-            }
-        });
-/*
 
-        // Close and save page once button is pressed
-        Button saveButton = findViewById(R.id.save_button);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                // Save input data to a database
-                // Save course name as a bundle
+                // Create course object from info
+                // todo: add info from grading option
+                // todo: handle empty entries
+                Course newCourse = new Course(department_text, course_code_text,
+                        GradingOption.UNCOUNTED, Double.parseDouble(units_text), notes_text);
+                // Add course to RequirementCategory
+                // todo: have separate RequirementCategory objects for major/minor/ge/etc.
+                RequirementsViewModel req_model = new RequirementsViewModel();
+                req_model.allCourses.addCourse(newCourse);
+                // Close activity
                 finish();
             }
         });
 
- */
     }
 
 
