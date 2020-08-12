@@ -55,4 +55,14 @@ public class Course { //NOTES: test base class; TODO: need to add prereqs class 
 
     // likely todo: method for adding/removing prereqs
 
+    // compares if two courses are the same
+    public boolean compareCourses(Course myCourse) {
+        if(this.dept.compareTo(myCourse.dept) == 0 && this.code.compareTo(myCourse.code) == 0) {
+            // compare the grading options in addition to dept and code for cases of retaking
+            if(option == myCourse.option) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
