@@ -23,16 +23,6 @@ public class ResourcesFragment extends Fragment {
                 ViewModelProviders.of(this).get(ResourcesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_resources, container, false);
 
-        /* Original code when file was created
-        final TextView textView = root.findViewById(R.id.text_resources);
-        resourcesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-
-         */
 
         // Move to college advising screen once button is pressed
         Button collegeAdvBtn = root.findViewById(R.id.college_advising_button);
