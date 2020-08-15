@@ -31,4 +31,9 @@
     <string name="ucsd_catalog">UCSD Catalog</string>
     <string name="webreg">Webreg</string>
     <string name="element">Element</string>
+    <string name="checklist">Checklist</string>
+    <string name="quarter_plan">Quarter Plan</string>
+    <string name="course">Course</string>
+    <string name="p_np_caps">P/NP</string>
+    <string name="_4_0">4.0</string>
 </resources>

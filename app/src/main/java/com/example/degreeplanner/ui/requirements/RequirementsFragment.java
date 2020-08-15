@@ -3,25 +3,20 @@ package com.example.degreeplanner.ui.requirements;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.Button;
+import android.widget.GridLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.degreeplanner.R;
-import com.example.degreeplanner.activities.MainActivity;
-import com.example.degreeplanner.classes.Course;
-import com.example.degreeplanner.classes.RequirementCategory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RequirementsFragment extends Fragment {
@@ -68,6 +63,8 @@ public class RequirementsFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.req_recycler_view);
         // set a GridLayoutManager with default vertical orientation and 3 number of columns
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),3);
+        // Add space between rows
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecorator(20));
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         // Adapter initialization
         RequirementAdapter adapter = new RequirementAdapter(getActivity(), requirementsViewModel.getAllCourses());
