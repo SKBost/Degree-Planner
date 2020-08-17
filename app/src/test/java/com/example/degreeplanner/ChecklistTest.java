@@ -11,20 +11,26 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class ChecklistTest {
-    ArrayList<Course> CogsCourses;
-    ArrayList<Course> CseCourses;
-    ArrayList<Course> PsycCourses;
-    ArrayList<Course> completed;
+    ArrayList<Course> CogsCourses; // COGS 1, COGS 2, and COGS3
+    ArrayList<Course> CseCourses; // CSE11, CSE 12, and CSE 30
+    ArrayList<Course> PsycCourses; // PSYC 100, PSYC 101, and PSYC 102
+
+    Course CSE20;
+    Course DSC20;
+    Course JAP1C;
+    ArrayList<Course> completed; // CSE 20, DSC 20, and JAP 10C
 
     RequirementCategory COGS;
     RequirementCategory CSE;
     RequirementCategory PSYC;
     ArrayList<RequirementCategory> all;
 
-    ArrayList<RequirementCategory> required;
+    ArrayList<RequirementCategory> one;
 
     @Before
     public void setUp() {
@@ -56,9 +62,9 @@ public class ChecklistTest {
         PsycCourses.add(CSE30);
         PSYC = new RequirementCategory("PSYC", CseCourses);
         // completed courses
-        Course CSE20 = new Course("CSE", "20", GradingOption.LETTER, 4, "");
-        Course DSC20 = new Course("DSC", "20", GradingOption.LETTER, 4, "");
-        Course JAP1C = new Course("JAP", "1C", GradingOption.LETTER, 5, "");
+        CSE20 = new Course("CSE", "20", GradingOption.LETTER, 4, "");
+        DSC20 = new Course("DSC", "20", GradingOption.LETTER, 4, "");
+        JAP1C = new Course("JAP", "1C", GradingOption.LETTER, 5, "");
         completed = new ArrayList<Course>();
         completed.add(CSE20);
         completed.add(DSC20);
@@ -68,6 +74,9 @@ public class ChecklistTest {
         all.add(CSE);
         all.add(COGS);
         all.add(PSYC);
+
+        one = new ArrayList<>();
+        one.add(CSE);
     }
 
     @Test
@@ -98,13 +107,62 @@ public class ChecklistTest {
         test.setCompletedCourses(newComp);
         assertEquals(test.getCompletedCourses(), newComp);
 
-        ArrayList<RequirementCategory> one = new ArrayList<>();
-        one.add(CSE);
 
         test.setRequirementCategories(one);
         assertEquals(test.getRequirementCategories(), one);
     }
-    // TODO: add more tests
 
+    @Test
+    public void testAddRequirementCategory() {
+        Checklist test = new Checklist(one, completed);
+        test.addRequirementCategory(COGS);
+        test.addRequirementCategory(PSYC);
+        assertEquals(test.getRequirementCategories(), all);
+    }
+
+    @Test
+    public void testRemoveRequirementCategory() {
+        Checklist test = new Checklist(all, completed);
+        test.removeRequirementCategory(COGS);
+        test.removeRequirementCategory(PSYC);
+        assertEquals(test.getRequirementCategories(), one);
+    }
+
+    @Test
+    public void testAddCompletedCourse() {
+        Checklist test = new Checklist(one, completed);
+        Course CSE11 = new Course("CSE", "11", GradingOption.LETTER, 4, "");
+        test.addCompletedCourse(CSE11);
+        assertTrue(test.getCompletedCourses().contains(CSE11));
+        assertTrue(test.getCompletedCourses().contains(CSE20));
+        assertTrue(test.getCompletedCourses().contains(DSC20));
+        assertTrue(test.getCompletedCourses().contains(JAP1C));
+        Course PSYC100 = new Course("PSYC", "100", GradingOption.LETTER, 4, "");
+        test.addCompletedCourse(PSYC100);
+        assertTrue(test.getCompletedCourses().contains(PSYC100));
+        assertTrue(test.getCompletedCourses().contains(CSE20));
+        assertTrue(test.getCompletedCourses().contains(DSC20));
+        assertTrue(test.getCompletedCourses().contains(JAP1C));
+    }
+
+    @Test
+    public void testRemoveCompletedCourse() {
+        Checklist test = new Checklist(one, completed);
+        test.removeCompletedCourse(CSE20);
+        assertFalse(test.getCompletedCourses().contains(CSE20));
+        assertTrue(test.getCompletedCourses().contains(DSC20));
+        assertTrue(test.getCompletedCourses().contains(JAP1C));
+    }
+
+    @Test
+    public void testGetUncompletedRequirementCategories() {
+        Checklist test1 = new Checklist(one, completed);
+        ArrayList<RequirementCategory> unComp1 = test1.getUncompletedRequirementCategories();
+        assertEquals(unComp1, one);
+
+        Checklist test2 = new Checklist(all, completed);
+        ArrayList<RequirementCategory> unComp2 = test2.getUncompletedRequirementCategories();
+        assertEquals(unComp2, all);
+    }
 
 }
