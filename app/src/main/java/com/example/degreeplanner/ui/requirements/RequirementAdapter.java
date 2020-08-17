@@ -58,8 +58,8 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TextView myTextView = holder.textView;
         Course myCourse = courses.get(position);
+        // todo: replace text with resource strings
         myTextView.setText(myCourse.getDept() + " " + myCourse.getCode());
-        Log.e("RequirementsFragment", "AAAAAAH" + " " + myCourse.getDept() + " " + myCourse.getCode());
     }
 
     /*
@@ -67,7 +67,6 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
      */
     @Override
     public int getItemCount() {
-        Log.e("adapter", "This is size: " + courses.size());
         return this.courses.size();
     }
 }

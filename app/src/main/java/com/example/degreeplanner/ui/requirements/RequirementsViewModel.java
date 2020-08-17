@@ -17,11 +17,14 @@ import com.example.degreeplanner.classes.Course;
 import com.example.degreeplanner.classes.RequirementCategory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class RequirementsViewModel extends ViewModel {
 
     public static RequirementCategory allCourses = new RequirementCategory("All Course Info");
+    public static ArrayList<RequirementCategory> allReqCats =
+            new ArrayList<>(Arrays.asList(allCourses));
 
 
     public ArrayList<Course> getAllCourses() {
