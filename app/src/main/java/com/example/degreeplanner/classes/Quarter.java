@@ -8,7 +8,7 @@ public class Quarter { // NOTE: important rule: assume input is always correct (
     private ArrayList<Course> courses;
 
     // constructors (use whichever suits your purposes; you can set any part of this class later)
-
+    // Todo: check if the minimum units allowed for enrollment is reached
     // minimal
     public Quarter() { // note: null fields exist for this option
         courses = new ArrayList<Course>();
