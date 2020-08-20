@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="@string/overlap_requirement"
+            android:text="@string/requirement_category"
             android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/text__prereq_course_code"
@@ -103,10 +103,23 @@
             android:ems="10"
             android:fontFamily="@font/montserrat"
             android:hint="@string/units"
+            android:text="4"
             android:inputType="number"
             android:textSize="14sp"
             android:importantForAutofill="no"
             app:layout_constraintStart_toStartOf="@+id/text_course_code"
+            app:layout_constraintTop_toBottomOf="@+id/text_course_code" />
+
+        <TextView
+            android:id="@+id/req_units_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/units"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/number_units"
             app:layout_constraintTop_toBottomOf="@+id/text_course_code" />
 
         <Switch

@@ -17,7 +17,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.degreeplanner.R;
+import com.example.degreeplanner.classes.Course;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class RequirementsFragment extends Fragment {
 
@@ -47,29 +50,52 @@ public class RequirementsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        this.displayCourses();
-
+        // Create recycler view layouts for all categories
+        RecyclerView majorView = (RecyclerView) getView().findViewById(R.id.req_recycler_view);
+        RecyclerView minorView = (RecyclerView) getView().findViewById(R.id.req_recyclerView_minor);
+        RecyclerView collegeView = (RecyclerView) getView().findViewById(R.id.req_recycler_view_college);
+        RecyclerView universityView = (RecyclerView) getView().findViewById(R.id.req_recycler_view_university);
+        this.displayCourses(majorView, "Major");
+        this.displayCourses(minorView, "Minor");
+        this.displayCourses(collegeView, "College");
+        this.displayCourses(universityView, "University");
     }
 
     /*
      * Displays all user input courses through a recycler view layout
      * todo: have a separate method for major/minor/etc.
      */
-    public void displayCourses() {
+    public void displayCourses(RecyclerView recyclerView, String category) {
         // Create RequirementsViewModel object
         requirementsViewModel =
                 new ViewModelProvider(this).get(RequirementsViewModel.class);
-        // Create recycler view layout
-        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.req_recycler_view);
         // set a GridLayoutManager with default vertical orientation and 3 number of columns
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),3);
         // Add space between rows
         recyclerView.addItemDecoration(new VerticalSpaceItemDecorator(20));
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         // Adapter initialization
-        RequirementAdapter adapter = new RequirementAdapter(getActivity(), requirementsViewModel.getAllCourses());
+        RequirementAdapter adapter = new RequirementAdapter(getActivity(), this.displayCoursesHelper(category));
         recyclerView.setAdapter(adapter);
     }
+
+    /*
+     * displayCourses helper method to get correct courses based on category
+     */
+    public ArrayList<Course> displayCoursesHelper(String category) {
+        switch (category) {
+            case "Major" :
+                return requirementsViewModel.getMajorCourses();
+            case "Minor" :
+                return requirementsViewModel.getMinorCourses();
+            case "College" :
+                return requirementsViewModel.getCollegeCourses();
+            case "University" :
+                return requirementsViewModel.getUniversityCourses();
+        }
+        return requirementsViewModel.getAllCourses();
+    }
+
 
     /*
      * Function to open the add requirements page on click

@@ -1,10 +1,14 @@
 package com.example.degreeplanner.ui.requirements;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +20,7 @@ import com.example.degreeplanner.enums.GradingOption;
 //import static com.example.degreeplanner.ui.requirements.RequirementsViewModel.allCoursesData;
 
 public class AddRequirement extends AppCompatActivity {
+    String selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,31 @@ public class AddRequirement extends AppCompatActivity {
         final EditText units = (EditText) findViewById(R.id.number_units);
         final EditText notes = (EditText) findViewById(R.id.text_notes);
 
+        // Set up drop down spinner
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.add_req_options, R.layout.spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
 
+        // Find which category to add class to through spinner
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                selectedItem = parent.getItemAtPosition(position).toString();
+            }
+            // to close the onItemSelected
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
+        // Store information once the save button is pressed
         Button saveReq = (Button) findViewById(R.id.save_button);
         saveReq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,21 +77,29 @@ public class AddRequirement extends AppCompatActivity {
                 String units_text = units.getText().toString();
                 String notes_text = notes.getText().toString();
 
-                /*
-                * Get all the input fields
-                * Write them using an API to your database
-                * Use Http handlers to write to the database
-                * */
-
-                // Create course object from info
                 // todo: add info from grading option
                 // todo: handle empty entries
+                // Create course object from info
                 Course newCourse = new Course(department_text, course_code_text,
                         GradingOption.UNCOUNTED, Double.parseDouble(units_text), notes_text);
-                // Add course to RequirementCategory
-                // todo: have separate RequirementCategory objects for major/minor/ge/etc.
-                RequirementsViewModel req_model = new RequirementsViewModel();
-                req_model.allCourses.addCourse(newCourse);
+                // Add to correct category based on spinner
+                switch (selectedItem) {
+                    // Add classes to correct category
+                    case "Major" :
+                        RequirementsViewModel.majorCourses.addCourse(newCourse);
+                        break;
+                    case "Minor" :
+                        RequirementsViewModel.minorCourses.addCourse(newCourse);
+                        break;
+                    case "College" :
+                        RequirementsViewModel.collegeCourses.addCourse(newCourse);
+                        break;
+                    case "University" :
+                        RequirementsViewModel.universityCourses.addCourse(newCourse);
+                        break;
+                }
+                // Add course to "all courses" RequirementCategory
+                RequirementsViewModel.allCourses.addCourse(newCourse);
                 // Close activity
                 finish();
             }

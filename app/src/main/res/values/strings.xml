@@ -36,4 +36,6 @@
     <string name="course">Course</string>
     <string name="p_np_caps">P/NP</string>
     <string name="_4_0">4.0</string>
+    <string name="university">University</string>
+    <string name="requirement_category">Requirement Category</string>
 </resources>

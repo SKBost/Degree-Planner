@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="add_req_options">
+        <item>@string/major</item>
+        <item>@string/minor</item>
+        <item>@string/college</item>
+        <item>@string/university</item>
+    </string-array>
+</resources>
