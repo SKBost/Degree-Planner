@@ -63,7 +63,6 @@ public class RequirementsFragment extends Fragment {
 
     /*
      * Displays all user input courses through a recycler view layout
-     * todo: have a separate method for major/minor/etc.
      */
     public void displayCourses(RecyclerView recyclerView, String category) {
         // Create RequirementsViewModel object

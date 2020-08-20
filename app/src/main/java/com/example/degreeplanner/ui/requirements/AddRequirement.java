@@ -43,7 +43,7 @@ public class AddRequirement extends AppCompatActivity {
 
         // Set up drop down spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the string array and a spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.add_req_options, R.layout.spinner_item);
         // Specify the layout to use when the list of choices appears

@@ -7,10 +7,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -85,6 +87,29 @@ public class HomeFragment extends Fragment {
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window token
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 600);
+
+        // Set up drop down spinner for quarter
+        Spinner quarterSpinner = (Spinner) popupView.findViewById(R.id.spinner_quarter);
+        // Create an ArrayAdapter using the string array and a spinner layout
+        ArrayAdapter<CharSequence> quarterAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.quarter_spinner_options, R.layout.spinner_item);
+        // Specify the layout to use when the list of choices appears
+        quarterAdapter.setDropDownViewResource(R.layout.spinner_item);
+        // Apply the adapter to the spinner
+        quarterSpinner.setAdapter(quarterAdapter);
+
+        /* todo: pass in course list as an array for dropdown
+        // Set up drop down spinner for courses
+        Spinner courseSpinner = (Spinner) popupView.findViewById(R.id.spinner_quarter);
+        // Create an ArrayAdapter using the string array and a spinner layout
+        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.quarter_spinner_options, R.layout.spinner_item);
+        // Specify the layout to use when the list of choices appears
+        courseAdapter.setDropDownViewResource(R.layout.spinner_item);
+        // Apply the adapter to the spinner
+        courseSpinner.setAdapter(courseAdapter);
+         */
+
     }
 }
 

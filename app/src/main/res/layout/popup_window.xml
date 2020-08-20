@@ -19,21 +19,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/plan_button"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="50dp"
         android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
         android:layout_toEndOf="@+id/spinner_courses" />
 
-    <Spinner
-        android:id="@+id/spinner_year"
+    <EditText
+        android:id="@+id/planned_year_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/plan_button"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
         android:layout_marginTop="50dp"
-        android:layout_toEndOf="@+id/spinner_quarter" />
+        android:fontFamily="@font/montserrat"
+        android:textSize="16sp"
+        android:hint="@string/year"
+        android:inputType="number"
+        android:layout_toEndOf="@+id/spinner_quarter"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/plan_button"

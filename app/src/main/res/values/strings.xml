@@ -38,4 +38,9 @@
     <string name="_4_0">4.0</string>
     <string name="university">University</string>
     <string name="requirement_category">Requirement Category</string>
+    <string name="year">Year</string>
+    <string name="fall">Fall</string>
+    <string name="winter">Winter</string>
+    <string name="spring">Spring</string>
+    <string name="summer">Summer</string>
 </resources>

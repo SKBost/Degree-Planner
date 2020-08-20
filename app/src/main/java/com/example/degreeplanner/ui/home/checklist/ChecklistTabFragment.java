@@ -1,5 +1,6 @@
 package com.example.degreeplanner.ui.home.checklist;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -32,11 +33,21 @@ public class ChecklistTabFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.checklist_tab_fragment, container, false);
 
-        // Set up expandable list in checklist
-        expandableListView = (ExpandableListView) root.findViewById(R.id.expandableListView);
-        // todo: using all courses, replace with specific categories (major,minor,etc.)
-        // todo: array of all completed courses needs to be made, using all courses just as filler
+        // todo: array of all completed and uncompleted courses needs to be made, using all courses just as filler
+        // Create adapter for checklist
         checklistAdapter = new ChecklistAdapter(getContext(), RequirementsViewModel.allReqCats, RequirementsViewModel.allCourses.getCourses());
+
+        // Set up major category expandable list in checklist
+        expandableListView = (ExpandableListView) root.findViewById(R.id.expandableListView);
+        expandableListView.setAdapter(checklistAdapter);
+        // Set up minor category expandable list in checklist
+        expandableListView = (ExpandableListView) root.findViewById(R.id.expandable_list_minor);
+        expandableListView.setAdapter(checklistAdapter);
+        // Set up college category expandable list in checklist
+        expandableListView = (ExpandableListView) root.findViewById(R.id.expandable_list_college);
+        expandableListView.setAdapter(checklistAdapter);
+        // Set up university category expandable list in checklist
+        expandableListView = (ExpandableListView) root.findViewById(R.id.expandable_list_university);
         expandableListView.setAdapter(checklistAdapter);
 
         return root;
@@ -45,7 +56,8 @@ public class ChecklistTabFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ChecklistTabViewModel.class);
+        mViewModel =
+                new ViewModelProvider(this).get(ChecklistTabViewModel.class);
         // TODO: Use the ViewModel
     }
 

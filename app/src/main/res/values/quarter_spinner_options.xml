@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="quarter_spinner_options">
+        <item>@string/fall</item>
+        <item>@string/winter</item>
+        <item>@string/spring</item>
+        <item>@string/summer</item>
+    </string-array>
+</resources>
