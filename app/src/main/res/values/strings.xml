@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Degree Planner</string>
+    <string name="welcome">Welcome!</string>
+    <string name="ready">Ready to plan your degree?</string>
+    <string name="go">Let&apos;s go!</string>
+    <string name="get_started">Let&apos;s get started!</string>
+    <string name="change_in_settings">(don&apos;t worry, you can change all of this later in settings!)</string>
+    <string name="start_planning">Start planning!</string>
     <string name="title_home">Home</string>
     <string name="title_requirements">Requirements</string>
     <string name="title_resources">Resources</string>
@@ -9,9 +15,8 @@
     <string name="enter_minor">Enter minor</string>
     <string name="enter_major">Enter major</string>
     <string name="enter_college">Enter college</string>
-    <string name="enter_incoming_year">Enter incoming year</string>
+    <string name="enter_incoming_year">Year you entered UCSD</string>
     <string name="incoming_year">Incoming Year</string>
-    <string name="get_started">Get Started!</string>
     <string name="welcome_screen">Welcome Screen</string>
     <string name="title_profile">Profile</string>
     <string name="new_requirement">New Requirement</string>

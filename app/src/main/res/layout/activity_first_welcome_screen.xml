@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:paddingTop="?attr/actionBarSize">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/welcome"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/midnight_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/welcome" />
+
+
+    <TextView
+        android:id="@+id/ready"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/ready"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/midnight_green"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:text="@string/ready" />
+
+    <ImageView
+        android:layout_width="193dp"
+        android:layout_height="471dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/welcome_screen_boy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ready" />
+
+    <ImageView
+        android:layout_width="190dp"
+        android:layout_height="476dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="44dp"
+        android:src="@drawable/welcome_screen_girl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ready" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="197dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/montserrat"
+        android:stateListAnimator="@null"
+        android:text="@string/go"
+        android:textAllCaps="false"
+        android:textColor="@color/midnight_green"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/year" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
