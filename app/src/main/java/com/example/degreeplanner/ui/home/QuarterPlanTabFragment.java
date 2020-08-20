@@ -1,5 +1,6 @@
 package com.example.degreeplanner.ui.home;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -16,7 +17,7 @@ import com.example.degreeplanner.R;
 
 public class QuarterPlanTabFragment extends Fragment {
 
-    private QuarterPlanTabViewModel mViewModel;
+    private SharedHomeViewModel mViewModel;
 
     public static QuarterPlanTabFragment newInstance() {
         return new QuarterPlanTabFragment();
@@ -31,8 +32,8 @@ public class QuarterPlanTabFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(QuarterPlanTabViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel =
+                new ViewModelProvider(requireActivity()).get(SharedHomeViewModel.class);
     }
 
 }

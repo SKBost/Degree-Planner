@@ -1,7 +1,6 @@
 package com.example.degreeplanner.ui.home.checklist;
 
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -9,18 +8,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.example.degreeplanner.R;
+import com.example.degreeplanner.ui.home.SharedHomeViewModel;
 import com.example.degreeplanner.ui.requirements.RequirementsViewModel;
 
 public class ChecklistTabFragment extends Fragment {
 
-    private ChecklistTabViewModel mViewModel;
+    private SharedHomeViewModel mViewModel;
     ExpandableListView expandableListView;
     ChecklistAdapter checklistAdapter;
 
@@ -57,8 +56,7 @@ public class ChecklistTabFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel =
-                new ViewModelProvider(this).get(ChecklistTabViewModel.class);
-        // TODO: Use the ViewModel
+                new ViewModelProvider(requireActivity()).get(SharedHomeViewModel.class);
     }
 
 }

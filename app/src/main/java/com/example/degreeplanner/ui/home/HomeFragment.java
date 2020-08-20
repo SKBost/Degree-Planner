@@ -25,12 +25,17 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.degreeplanner.R;
+import com.example.degreeplanner.classes.Course;
 import com.example.degreeplanner.ui.home.checklist.ChecklistAdapter;
 import com.example.degreeplanner.ui.requirements.AddRequirement;
 import com.example.degreeplanner.ui.requirements.RequirementsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class HomeFragment extends Fragment {
 
@@ -98,17 +103,22 @@ public class HomeFragment extends Fragment {
         // Apply the adapter to the spinner
         quarterSpinner.setAdapter(quarterAdapter);
 
-        /* todo: pass in course list as an array for dropdown
         // Set up drop down spinner for courses
-        Spinner courseSpinner = (Spinner) popupView.findViewById(R.id.spinner_quarter);
+        Spinner courseSpinner = (Spinner) popupView.findViewById(R.id.spinner_courses);
+        // Create an array with all course names
+        RequirementsViewModel req_model = new RequirementsViewModel();
+        ArrayList<String> myCourses = new ArrayList<>();
+        for (Course course: req_model.getAllCourses()) {
+            myCourses.add(course.getDept() + " " + course.getCode());
+        }
         // Create an ArrayAdapter using the string array and a spinner layout
-        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.quarter_spinner_options, R.layout.spinner_item);
+        ArrayAdapter<String> courseAdapter =
+                new ArrayAdapter<String>(getActivity(),R.layout.spinner_item, myCourses);
         // Specify the layout to use when the list of choices appears
         courseAdapter.setDropDownViewResource(R.layout.spinner_item);
         // Apply the adapter to the spinner
         courseSpinner.setAdapter(courseAdapter);
-         */
+
 
     }
 }
