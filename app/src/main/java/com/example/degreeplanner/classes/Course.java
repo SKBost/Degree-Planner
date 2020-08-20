@@ -72,12 +72,11 @@ public class Course { //NOTES: test base class; TODO: need to add prereqs class 
     public void setx(x newx) { x = newx; }
      */
 
-    // likely todo: method for removing prereqs
     public void addPrereq(Course newPrereq) {
         prereqs.add(newPrereq);
     }
 
-    public void removePrereq(Course removed) {
+    public void removePrereq(Course removed) { // TODO need to test
         for(int i = 0; i < prereqs.size(); i++) {
             if(removed.sameCourseNameAs(prereqs.get(i))) {
                 prereqs.remove(i);
@@ -87,7 +86,7 @@ public class Course { //NOTES: test base class; TODO: need to add prereqs class 
     }
 
     // compares if two courses are the same
-    public boolean compareCourses(Course myCourse) {
+    public boolean compareCourses(Course myCourse) { // TODO need to test
         if(this.dept.compareTo(myCourse.dept) == 0 && this.code.compareTo(myCourse.code) == 0) {
             // compare the grading options in addition to dept and code for cases of retaking
             if(option == myCourse.option) {
@@ -98,10 +97,31 @@ public class Course { //NOTES: test base class; TODO: need to add prereqs class 
     }
 
     // tests if dept and code are the same
-    public boolean sameCourseNameAs(Course myCourse) { // do not change this.
+    public boolean sameCourseNameAs(Course myCourse) { // do not change this. TODO needs to be tested
         if(this.dept.compareTo(myCourse.dept) == 0 && this.code.compareTo(myCourse.code) == 0) {
             return true;
         }
         return false;
     }
+
+    // see if all prereqs have been fulfilled
+    public boolean prereqsFulfilled(ArrayList<Course> compCourses) {
+        for(int i = 0; i < prereqs.size(); i++) { // check if each prereq has one same completed class
+            Course prereq = prereqs.get(i);
+            boolean fulfilled = false;
+            for(int j = 0; j < compCourses.size(); j++) {
+                Course compCourse = compCourses.get(j);
+                if(prereq.sameCourseNameAs(compCourse)) { // fulfilled
+                    fulfilled = true;
+                    break;
+                }
+            }
+            if(!fulfilled) { // no match found for prereq
+                return false;
+            }
+        }
+        return true; // no unfulfilled prereqs
+    }
+
+
 }
