@@ -15,16 +15,17 @@ public class WelcomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome_screen);
+        setContentView(R.layout.activity_first_welcome_screen);
 
-        // Move to home screen once button is pressed
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        // Move to second welcome screen once button is pressed
+        Button button_initial = findViewById(R.id.button_first_welcome);
+        button_initial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                openHomeScreen();
+                openSecondWelcomeScreen();
             }
         });
+
     }
 
     /*
@@ -33,6 +34,23 @@ public class WelcomeScreen extends AppCompatActivity {
     public void openHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    /*
+     * Function to open home screen
+     */
+    public void openSecondWelcomeScreen() {
+        setContentView(R.layout.activity_welcome_screen);
+        // Move to home screen once button is pressed
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                openHomeScreen();
+            }
+        });
+        //Intent intent = new Intent(this, MainActivity.class);
+        //startActivity(intent);
     }
 
 }

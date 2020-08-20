@@ -57,11 +57,11 @@
         app:layout_constraintTop_toBottomOf="@+id/ready" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_first_welcome"
         android:layout_width="197dp"
         android:layout_height="57dp"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/montserrat"
         android:stateListAnimator="@null"

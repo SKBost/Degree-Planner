@@ -10,4 +10,14 @@
         android:layout_height="match_parent"
         android:text="Hello" />
 
+    <SeekBar
+        android:id="@+id/quarter_slider"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="243dp"
+        android:layout_height="142dp"
+        android:max="10"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="550dp"
+        android:progress="3" />
+
 </FrameLayout>
