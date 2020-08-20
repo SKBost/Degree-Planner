@@ -26,7 +26,7 @@ public class ScheduleTest {
     ArrayList<Quarter> oneQuarter;
     Schedule fullSchedule;
     Schedule emptySchedule;
-    Schedule oneThridFullSchedule;
+    Schedule oneThirdFullSchedule;
 
     @Before
     public void setUp() {
@@ -75,7 +75,7 @@ public class ScheduleTest {
         emptySchedule = new Schedule();
 
         // a schedule with only one quarter
-        oneThridFullSchedule = new Schedule(oneQuarter);
+        oneThirdFullSchedule = new Schedule(oneQuarter);
     }
 
     @Test
@@ -85,14 +85,16 @@ public class ScheduleTest {
         assertEquals(0, quarters.size());
         assertEquals(0.0, schedule.getTotalUnits());
     }
+
     @Test
     public void testGetQuarters() {
         // test schedule with only one quarter
-        assertEquals(oneQuarter, oneThridFullSchedule.getQuarters());
+        assertEquals(oneQuarter, oneThirdFullSchedule.getQuarters());
 
         // test full schedule
         assertEquals(threeQuarters, fullSchedule.getQuarters());
     }
+
     @Test
     public void testSetQuarters() {
         emptySchedule.setQuarters(oneQuarter);
@@ -101,6 +103,7 @@ public class ScheduleTest {
         emptySchedule.setQuarters(threeQuarters);
         assertEquals(threeQuarters, emptySchedule.getQuarters());
     }
+
     @Test
     public void testAddQuarter() {
         emptySchedule.addQuarter(firstFall);
@@ -111,10 +114,19 @@ public class ScheduleTest {
         assertEquals(threeQuarters, emptySchedule.getQuarters());
         // when adding quarters, the order must be the same for the test to pass.
     }
+
     @Test
     public void testGetTotalUnits() {
         assertEquals(0.0, emptySchedule.getTotalUnits());
         assertEquals(39.0, fullSchedule.getTotalUnits());
-        assertEquals(13.0, oneThridFullSchedule.getTotalUnits());
+        assertEquals(13.0, oneThirdFullSchedule.getTotalUnits());
     }
+
+    @Test
+    public void testGetSuggestedCourses() {
+
+        assertEquals(13.0, oneThirdFullSchedule.getTotalUnits());
+    }
+
+
 }
