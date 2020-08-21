@@ -7,7 +7,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -39,15 +42,17 @@ import java.util.Arrays;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private SharedHomeViewModel mViewModel;
     TabAdapter tabAdapter;
     ViewPager2 viewPager;
+    String selectedItem;
+
     private static final String[] tabNames = new String[] {"Checklist", "Quarter Plan"};
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        mViewModel =
+                new ViewModelProvider(requireActivity()).get(SharedHomeViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Set up checklist and quarter plan tab
@@ -56,7 +61,7 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(tabAdapter);
 
 
-        // Move to add requirements screen once button is pressed
+        // Open popup window once button is pressed
         FloatingActionButton editPlanBtn = root.findViewById(R.id.edit_quarter_plan_button);
         editPlanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,9 +70,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         return root;
     }
 
+    /*
+     * Allow tab layout to properly display
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
@@ -77,7 +86,7 @@ public class HomeFragment extends Fragment {
     }
 
     /*
-     * Function to open the edit quarter plan page on click
+     * Function to open the edit quarter plan popup on click
      */
     public void openEditQuarterPlan(ViewGroup container, View view) {
         // inflate the layout of the popup window
@@ -90,7 +99,6 @@ public class HomeFragment extends Fragment {
         final PopupWindow popupWindow = new PopupWindow(popupView, width, 550, true);
 
         // show the popup window
-        // which view you pass in doesn't matter, it is only used for the window token
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 600);
 
         // Set up drop down spinner for quarter
@@ -109,18 +117,41 @@ public class HomeFragment extends Fragment {
         RequirementsViewModel req_model = new RequirementsViewModel();
         ArrayList<String> myCourses = new ArrayList<>();
         for (Course course: req_model.getAllCourses()) {
-            myCourses.add(course.getDept() + " " + course.getCode());
+            String name = course.getDept() + " " + course.getCode();
+            myCourses.add(name);
         }
-        // Create an ArrayAdapter using the string array and a spinner layout
         ArrayAdapter<String> courseAdapter =
                 new ArrayAdapter<String>(getActivity(),R.layout.spinner_item, myCourses);
-        // Specify the layout to use when the list of choices appears
         courseAdapter.setDropDownViewResource(R.layout.spinner_item);
-        // Apply the adapter to the spinner
         courseSpinner.setAdapter(courseAdapter);
 
+//            // Store plan information
+//            String coursePlanned = this.getSpinnerInfo(courseSpinner);
+//            String quarterPlanned = this.getSpinnerInfo(quarterSpinner);
+        EditText yearPlannedEditText = popupView.findViewById(R.id.planned_year_text);
 
+        // Set button for popup
+        this.whenPlanned(popupView, popupWindow, courseSpinner, quarterSpinner, yearPlannedEditText);
+    }
+
+    /*
+     * Sets on click listener for plan button and adds planned course to schedule once pressed
+     */
+    public void whenPlanned(View view, PopupWindow popupWindow, Spinner myCourse, Spinner myQuarter, EditText myYear) {
+        Button planButton = (Button) view.findViewById(R.id.plan_button);
+        planButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                String myCourseString = myCourse.getSelectedItem().toString();
+                String myQuarterString = myQuarter.getSelectedItem().toString();
+                // Save course to correct quarter
+                mViewModel.addCourseToQuarter(myCourseString, myQuarterString, Integer.parseInt(myYear.getText().toString()));
+                // Close popup
+                popupWindow.dismiss();
+            }
+        });
     }
 }
+
 
 

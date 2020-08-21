@@ -1,4 +1,4 @@
-package com.example.degreeplanner.ui.requirements;
+package com.example.degreeplanner.ui.home;
 
 import android.content.Context;
 import android.util.Log;
@@ -16,14 +16,14 @@ import com.example.degreeplanner.classes.Course;
 
 import java.util.ArrayList;
 
-public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.ViewHolder> {
+public class QuarterPlanAdapter extends RecyclerView.Adapter<QuarterPlanAdapter.ViewHolder> {
     ArrayList<Course> courses;
     LayoutInflater mInflater;
 
     /*
      * Constructor for adapter
      */
-    public RequirementAdapter(Context context, ArrayList<Course> courses) {
+    public QuarterPlanAdapter(Context context, ArrayList<Course> courses) {
         this.mInflater = LayoutInflater.from(context);
         this.courses = courses;
     }
@@ -32,14 +32,18 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
      * Specifies ViewHolder which gives access to necessary views
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        public TextView textViewCourse;
+        public TextView textViewGradingOption;
+        public TextView textViewUnits;
 
         /*
          * Constructor for ViewHolder
          */
         ViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.textView);
+            textViewCourse = (TextView) itemView.findViewById(R.id.course_name_text);
+            textViewGradingOption = (TextView) itemView.findViewById(R.id.course_grading_option_text);
+            textViewUnits = (TextView) itemView.findViewById(R.id.course_units_text);
         }
     }
 
@@ -50,16 +54,29 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = mInflater.inflate(R.layout.view_text, parent, false);
+        View view = mInflater.inflate(R.layout.quarter_plan_course, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TextView myTextView = holder.textView;
+        // Set Course
+        TextView myTextView = holder.textViewCourse;
         Course myCourse = courses.get(position);
         String courseName = myCourse.getDept() + " " + myCourse.getCode();
         myTextView.setText(courseName);
+        // Set grading option
+        TextView myGradingOptionTextView = holder.textViewGradingOption;
+        String gradingOption = myCourse.getOption().toString();
+        // Adjust for spacing if needed
+        if (gradingOption.equals("UNCOUNTED")) {
+            gradingOption = "N/A";
+        }
+        myGradingOptionTextView.setText(gradingOption);
+        // Set units
+        TextView myUnitTextView = holder.textViewUnits;
+        String units = Double.toString(myCourse.getUnits());
+        myUnitTextView.setText(units);
     }
 
     /*

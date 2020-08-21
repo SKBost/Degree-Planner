@@ -48,4 +48,10 @@
     <string name="winter">Winter</string>
     <string name="spring">Spring</string>
     <string name="summer">Summer</string>
+    <string name="num_years">Number of Years</string>
+    <string name="_4">4</string>
+    <string name="year_entered">Year Entered</string>
+    <string name="_2020">2020</string>
+    <string name="enter_num_years">Enter number of years</string>
+    <string name="enter_year_entered">Enter year entered</string>
 </resources>
