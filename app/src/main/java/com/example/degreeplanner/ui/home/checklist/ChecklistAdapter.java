@@ -25,13 +25,13 @@ public class ChecklistAdapter extends BaseExpandableListAdapter {
     /*
      * Adapter constructor
      */
-    public ChecklistAdapter(Context context, ArrayList<RequirementCategory> myReqCourses, ArrayList<Course> myCompCourses) {
+    public ChecklistAdapter(Context context, Checklist checklist) {
         super();
         this.context = context;
         expandableListTitle = new ArrayList<>();
         this.expandableListTitle.add("Completed");
         this.expandableListTitle.add("Uncompleted");
-        expandableListDetail = new Checklist(myReqCourses, myCompCourses);
+        expandableListDetail = checklist;
     }
 
     /*
@@ -43,8 +43,8 @@ public class ChecklistAdapter extends BaseExpandableListAdapter {
             case 0:
                 return expandableListDetail.getCompletedCourses().get(expandedListPosition);
             case 1:
-                // todo: get uncompleted courses, currently returns completed courses
-                return expandableListDetail.getCompletedCourses().get(expandedListPosition);
+                return expandableListDetail.getRequirementCategories().get(0).getUncompletedCourses
+                        (expandableListDetail.getCompletedCourses()).get(expandedListPosition);
         }
         return expandableListDetail.getCompletedCourses().get(expandedListPosition);
     }
@@ -86,8 +86,8 @@ public class ChecklistAdapter extends BaseExpandableListAdapter {
             case 0:
                 return expandableListDetail.getCompletedCourses().size();
             case 1:
-                // todo: get uncompleted course size, currently returns completed courses
-                return expandableListDetail.getCompletedCourses().size();
+                return expandableListDetail.getRequirementCategories().get(0).getUncompletedCourses
+                        (expandableListDetail.getCompletedCourses()).size();
         }
         return expandableListDetail.getCompletedCourses().size();
     }

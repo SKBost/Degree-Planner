@@ -1,7 +1,6 @@
 package com.example.degreeplanner.ui.requirements;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,6 +40,7 @@ public class AddRequirement extends AppCompatActivity {
         final EditText course_code = (EditText) findViewById(R.id.text_course_code);
         final EditText units = (EditText) findViewById(R.id.number_units);
         final EditText notes = (EditText) findViewById(R.id.text_notes);
+        final Switch passNoPass = (Switch) findViewById(R.id.switch_p_np);
 
         // Set up drop down spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -76,12 +77,15 @@ public class AddRequirement extends AppCompatActivity {
                 String course_code_text = course_code.getText().toString();
                 String units_text = units.getText().toString();
                 String notes_text = notes.getText().toString();
+                GradingOption pass = GradingOption.LETTER;
 
-                // todo: add info from grading option
                 // todo: handle empty entries
+                if (passNoPass.isChecked()) {
+                    pass = GradingOption.PNP;
+                }
                 // Create course object from info
                 Course newCourse = new Course(department_text, course_code_text,
-                        GradingOption.UNCOUNTED, Double.parseDouble(units_text), notes_text);
+                        pass, Double.parseDouble(units_text), notes_text);
                 // Add to correct category based on spinner
                 switch (selectedItem) {
                     // Add classes to correct category
@@ -99,7 +103,7 @@ public class AddRequirement extends AppCompatActivity {
                         break;
                 }
                 // Add course to "all courses" RequirementCategory
-                RequirementsViewModel.allCourses.addCourse(newCourse);
+                RequirementsViewModel.unplannedCourses.addCourse(newCourse);
                 // Close activity
                 finish();
             }

@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/plan_button"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginBottom="50dp"
         android:layout_marginTop="50dp"
         android:gravity="center_horizontal"
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/plan_button"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
         android:layout_toEndOf="@+id/spinner_quarter"
@@ -54,6 +54,18 @@
         android:textAllCaps="false"
         android:textSize="18sp"
         app:srcCompat="@drawable/rounded_button" />
+
+    <CheckBox
+        android:id="@+id/completion_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/plan_button"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="50dp"
+        android:layout_toEndOf="@+id/planned_year_text"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/completed"
+        android:textSize="13sp" />
 
 
 </RelativeLayout>

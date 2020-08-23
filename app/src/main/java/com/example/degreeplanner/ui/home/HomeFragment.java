@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -125,19 +126,18 @@ public class HomeFragment extends Fragment {
         courseAdapter.setDropDownViewResource(R.layout.spinner_item);
         courseSpinner.setAdapter(courseAdapter);
 
-//            // Store plan information
-//            String coursePlanned = this.getSpinnerInfo(courseSpinner);
-//            String quarterPlanned = this.getSpinnerInfo(quarterSpinner);
         EditText yearPlannedEditText = popupView.findViewById(R.id.planned_year_text);
+        CheckBox completion = popupView.findViewById(R.id.completion_checkBox);
 
         // Set button for popup
-        this.whenPlanned(popupView, popupWindow, courseSpinner, quarterSpinner, yearPlannedEditText);
+        this.whenPlanned(popupView, popupWindow, courseSpinner, quarterSpinner, yearPlannedEditText, completion);
     }
 
     /*
      * Sets on click listener for plan button and adds planned course to schedule once pressed
      */
-    public void whenPlanned(View view, PopupWindow popupWindow, Spinner myCourse, Spinner myQuarter, EditText myYear) {
+    public void whenPlanned(View view, PopupWindow popupWindow, Spinner myCourse,
+                            Spinner myQuarter, EditText myYear, CheckBox myCompletion) {
         Button planButton = (Button) view.findViewById(R.id.plan_button);
         planButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +145,26 @@ public class HomeFragment extends Fragment {
                 String myCourseString = myCourse.getSelectedItem().toString();
                 String myQuarterString = myQuarter.getSelectedItem().toString();
                 // Save course to correct quarter
-                mViewModel.addCourseToQuarter(myCourseString, myQuarterString, Integer.parseInt(myYear.getText().toString()));
+                Course c = mViewModel.addCourseToQuarter(myCourseString, myQuarterString,
+                        Integer.parseInt(myYear.getText().toString()));
+                // Add as a completed course if checked
+                if (myCompletion.isChecked()) {
+                    // Find which category course should be added to
+                    if (RequirementsViewModel.majorCourses.containsCourse(c)) {
+                        mViewModel.getChecklist("major").addCompletedCourse(c);
+                    }
+                    if (RequirementsViewModel.minorCourses.containsCourse(c)) {
+                        mViewModel.getChecklist("minor").addCompletedCourse(c);
+                    }
+                    if (RequirementsViewModel.collegeCourses.containsCourse(c)) {
+                        mViewModel.getChecklist("college").addCompletedCourse(c);
+                    }
+                    if (RequirementsViewModel.universityCourses.containsCourse(c)) {
+                        mViewModel.getChecklist("university").addCompletedCourse(c);
+                    }
+                }
+                // Remove class from list of plannable courses
+                RequirementsViewModel.unplannedCourses.removeCourse(c);
                 // Close popup
                 popupWindow.dismiss();
             }

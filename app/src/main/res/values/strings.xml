@@ -54,4 +54,5 @@
     <string name="_2020">2020</string>
     <string name="enter_num_years">Enter number of years</string>
     <string name="enter_year_entered">Enter year entered</string>
+    <string name="completed">Completed?</string>
 </resources>

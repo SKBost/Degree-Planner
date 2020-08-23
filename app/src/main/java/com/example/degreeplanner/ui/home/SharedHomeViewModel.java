@@ -1,20 +1,16 @@
 package com.example.degreeplanner.ui.home;
 
-import android.content.Context;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.Toast;
-
 import androidx.lifecycle.ViewModel;
 
-import com.example.degreeplanner.R;
+import com.example.degreeplanner.classes.Checklist;
 import com.example.degreeplanner.classes.Course;
 import com.example.degreeplanner.classes.Quarter;
+import com.example.degreeplanner.classes.RequirementCategory;
 import com.example.degreeplanner.classes.Schedule;
-import com.example.degreeplanner.ui.profile.ProfileFragment;
 import com.example.degreeplanner.ui.requirements.RequirementsViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SharedHomeViewModel extends ViewModel {
 
@@ -22,6 +18,32 @@ public class SharedHomeViewModel extends ViewModel {
     protected Schedule mySchedule = new Schedule();
     // todo: change to user input value
     int yearEntered = 2019;
+    // Checklists for all categories
+    Checklist majorChecklist = new Checklist(new ArrayList<RequirementCategory>
+            (Collections.singletonList(RequirementsViewModel.majorCourses)), new ArrayList<Course>());
+    Checklist minorChecklist = new Checklist(new ArrayList<RequirementCategory>
+            (Collections.singletonList(RequirementsViewModel.minorCourses)), new ArrayList<Course>());
+    Checklist collegeChecklist = new Checklist(new ArrayList<RequirementCategory>
+            (Collections.singletonList(RequirementsViewModel.collegeCourses)), new ArrayList<Course>());
+    Checklist universityChecklist = new Checklist(new ArrayList<RequirementCategory>
+            (Collections.singletonList(RequirementsViewModel.universityCourses)), new ArrayList<Course>());
+
+    /*
+     * Getter method for checklist
+     */
+    public Checklist getChecklist(String checklistName) {
+        switch (checklistName) {
+            case "major" :
+                return majorChecklist;
+            case "minor" :
+                return minorChecklist;
+            case "college" :
+                return collegeChecklist;
+            case "university" :
+                return universityChecklist;
+        }
+        return majorChecklist;
+    }
 
     /*
      * Getter method for mySchedule
@@ -66,21 +88,23 @@ public class SharedHomeViewModel extends ViewModel {
     /*
      * Adds planned course from popup to correct quarter
      */
-    public void addCourseToQuarter(String course, String quarter, int year) {
+    public Course addCourseToQuarter(String course, String quarter, int year) {
+        Course addedCourse = null;
         // Find quarter to add course to
         for (Quarter q: getMySchedule().getQuarters()) {
             if (q.getName().equals(quarter + " " + year)) {
-                Course addedCourse = null;
                 // Find course
-                for (Course c: RequirementsViewModel.allCourses.getCourses()) {
+                for (Course c: RequirementsViewModel.unplannedCourses.getCourses()) {
                     String courseName = c.getDept() + " " + c.getCode();
                     if (courseName.equals(course)) {
                         addedCourse = c;
                     }
                 }
                 q.addCourse(addedCourse);
+                return addedCourse;
             }
         }
+        return addedCourse;
     }
 
 

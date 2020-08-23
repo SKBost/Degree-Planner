@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.degreeplanner.R;
 import com.example.degreeplanner.classes.Course;
+import com.example.degreeplanner.enums.GradingOption;
 
 import java.util.ArrayList;
 
@@ -67,9 +68,15 @@ public class QuarterPlanAdapter extends RecyclerView.Adapter<QuarterPlanAdapter.
         myTextView.setText(courseName);
         // Set grading option
         TextView myGradingOptionTextView = holder.textViewGradingOption;
-        String gradingOption = myCourse.getOption().toString();
+        String gradingOption;
         // Adjust for spacing if needed
-        if (gradingOption.equals("UNCOUNTED")) {
+        if (myCourse.getOption().equals(GradingOption.LETTER)) {
+            gradingOption = "L";
+        }
+        else if (myCourse.getOption().equals((GradingOption.PNP))) {
+            gradingOption = "P/NP";
+        }
+        else {
             gradingOption = "N/A";
         }
         myGradingOptionTextView.setText(gradingOption);
