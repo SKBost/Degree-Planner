@@ -41,7 +41,7 @@
         android:id="@+id/minor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
@@ -56,7 +56,7 @@
         android:id="@+id/college"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
@@ -68,10 +68,10 @@
         app:layout_constraintTop_toBottomOf="@+id/minor" />
 
     <EditText
-        android:id="@+id/year"
+        android:id="@+id/year_entered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
@@ -81,6 +81,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/college" />
+
+    <EditText
+        android:id="@+id/graduating_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:hint="@string/enter_graduating_year"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/year_entered" />
 
     <TextView
         android:id="@+id/change_in_settings"
