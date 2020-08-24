@@ -1,8 +1,6 @@
-package com.example.degreeplanner.ui.home;
+package com.example.degreeplanner.ui.home.quarter;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,27 +11,22 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.degreeplanner.R;
-import com.example.degreeplanner.classes.Course;
 import com.example.degreeplanner.classes.Quarter;
-import com.example.degreeplanner.ui.home.QuarterPlanAdapter;
-import com.example.degreeplanner.ui.requirements.RequirementAdapter;
+import com.example.degreeplanner.ui.home.SharedHomeViewModel;
 import com.example.degreeplanner.ui.requirements.VerticalSpaceItemDecorator;
 
 public class QuarterPlanTabFragment extends Fragment {
 
     private SharedHomeViewModel mViewModel;
     private final String space = " ";
+    private SeekBar seekBar;
 
     public static QuarterPlanTabFragment newInstance() {
         return new QuarterPlanTabFragment();
@@ -45,7 +38,7 @@ public class QuarterPlanTabFragment extends Fragment {
         View root = inflater.inflate(R.layout.quarter_plan_tab_fragment, container, false);
         mViewModel =
                 new ViewModelProvider(requireActivity()).get(SharedHomeViewModel.class);
-        SeekBar seekBar = root.findViewById(R.id.quarter_slider);
+        seekBar = root.findViewById(R.id.quarter_slider);
         this.setSeekBar(seekBar, getContext());
 
         return root;
@@ -61,6 +54,7 @@ public class QuarterPlanTabFragment extends Fragment {
      */
     @Override
     public void onResume() {
+        this.setSeekBar(seekBar, getContext());
         super.onResume();
     }
 
@@ -68,6 +62,7 @@ public class QuarterPlanTabFragment extends Fragment {
      * Set the slider to have the correct quarter labels
      */
     public void setSeekBar(SeekBar mySeekBar, Context context) {
+        mySeekBar.setProgress(mViewModel.getSeekBarProgress());
         mySeekBar.setMax(mViewModel.getMySchedule().getQuarters().size() - 1);
         mySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -86,9 +81,8 @@ public class QuarterPlanTabFragment extends Fragment {
              */
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                mViewModel.setSeekBarProgress(seekBar.getProgress());
                 Quarter currQuarter = mViewModel.getMySchedule().getQuarters().get(mySeekBar.getProgress());
-                Log.e("quarter plan frag", "currQuarter size: " + currQuarter.getCourses().size());
                 Toast.makeText(context, currQuarter.getName(), Toast.LENGTH_SHORT).show();
                 // Initialize the recycler view which holds the list of courses
                 RecyclerView quarterView = (RecyclerView) getView().findViewById(R.id.quarter_plan_recycler);

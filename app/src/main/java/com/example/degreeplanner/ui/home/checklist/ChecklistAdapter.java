@@ -19,19 +19,37 @@ public class ChecklistAdapter extends BaseExpandableListAdapter {
     private Context context;
     // Header information (completed/uncompleted)
     private List<String> expandableListTitle;
-    // List body information (courses)
+    // List body information with all completed courses
     private Checklist expandableListDetail;
+    private ArrayList<Course> myCompCourses = new ArrayList<>();
+    private ArrayList<Course> myUncompCourses = new ArrayList<>();
 
     /*
      * Adapter constructor
      */
-    public ChecklistAdapter(Context context, Checklist checklist) {
+    public ChecklistAdapter(Context context, Checklist checklist, ArrayList<Course> myCoursesToQuarter) {
         super();
         this.context = context;
         expandableListTitle = new ArrayList<>();
         this.expandableListTitle.add("Completed");
         this.expandableListTitle.add("Uncompleted");
         expandableListDetail = checklist;
+        separateCompCourses(myCoursesToQuarter);
+    }
+
+    /*
+     * Separates completed and completed courses given a list of all courses
+     */
+    public void separateCompCourses(ArrayList<Course> allCoursesToDisplay) {
+        for (Course c: allCoursesToDisplay) {
+            if (expandableListDetail.getRequirementCategories().get(0).containsCourse(c)) {
+                if (expandableListDetail.getCompletedCourses().contains(c)) {
+                    myCompCourses.add(c);
+                } else {
+                    myUncompCourses.add(c);
+                }
+            }
+        }
     }
 
     /*
@@ -41,13 +59,13 @@ public class ChecklistAdapter extends BaseExpandableListAdapter {
     public Course getChild(int listPosition, int expandedListPosition) {
         switch (listPosition) {
             case 0:
-                return expandableListDetail.getCompletedCourses().get(expandedListPosition);
+                return myCompCourses.get(expandedListPosition);
             case 1:
-                return expandableListDetail.getRequirementCategories().get(0).getUncompletedCourses
-                        (expandableListDetail.getCompletedCourses()).get(expandedListPosition);
+                return myUncompCourses.get(expandedListPosition);
         }
-        return expandableListDetail.getCompletedCourses().get(expandedListPosition);
+        return myCompCourses.get(expandedListPosition);
     }
+
 
     /*
      * Gets the ID for the given child within the given group
@@ -84,10 +102,9 @@ public class ChecklistAdapter extends BaseExpandableListAdapter {
     public int getChildrenCount(int listPosition) {
         switch (listPosition) {
             case 0:
-                return expandableListDetail.getCompletedCourses().size();
+                return myCompCourses.size();
             case 1:
-                return expandableListDetail.getRequirementCategories().get(0).getUncompletedCourses
-                        (expandableListDetail.getCompletedCourses()).size();
+                return myUncompCourses.size();
         }
         return expandableListDetail.getCompletedCourses().size();
     }

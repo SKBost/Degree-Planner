@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="80dp"
+    android:paddingTop="30dp"
     android:fillViewport="true">
 
     <LinearLayout
@@ -12,12 +13,17 @@
         android:paddingRight="16dp"
         android:orientation="vertical" >
 
-        <RelativeLayout
-            android:id="@+id/checklist_tab"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <TextView
+        <SeekBar
+            android:id="@+id/checklist_seek_bar"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="326dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:progress="0"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
                 android:id="@+id/checklist_major"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,7 +38,6 @@
                 android:id="@+id/expandableListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/checklist_major"
                 android:divider="@android:color/white"
                 android:dividerHeight="0.5dp"
                 android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" >
@@ -47,14 +52,12 @@
                 android:text="@string/minor"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/expandableListView"/>
+                android:layout_marginTop="10dp" />
 
             <ExpandableListView
                 android:id="@+id/expandable_list_minor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/checklist_minor"
                 android:divider="@android:color/white"
                 android:dividerHeight="0.5dp"
                 android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" >
@@ -69,14 +72,12 @@
                 android:text="@string/college"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/expandable_list_minor"/>
+                android:layout_marginTop="10dp" />
 
             <ExpandableListView
                 android:id="@+id/expandable_list_college"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/checklist_college"
                 android:divider="@android:color/white"
                 android:dividerHeight="0.5dp"
                 android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" >
@@ -91,18 +92,16 @@
                 android:text="@string/university"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/expandable_list_college"/>
+                android:layout_marginTop="10dp" />
 
             <ExpandableListView
                 android:id="@+id/expandable_list_university"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/checklist_university"
                 android:divider="@android:color/white"
                 android:dividerHeight="0.5dp"
                 android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" >
             </ExpandableListView>
-        </RelativeLayout>
+
     </LinearLayout>
 </ScrollView>

@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.degreeplanner.ui.home.checklist.ChecklistTabFragment;
+import com.example.degreeplanner.ui.home.quarter.QuarterPlanTabFragment;
 
 public class TabAdapter extends FragmentStateAdapter {
 

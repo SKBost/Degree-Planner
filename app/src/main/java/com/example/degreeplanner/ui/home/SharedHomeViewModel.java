@@ -1,5 +1,7 @@
 package com.example.degreeplanner.ui.home;
 
+import android.util.Log;
+
 import androidx.lifecycle.ViewModel;
 
 import com.example.degreeplanner.classes.Checklist;
@@ -27,6 +29,15 @@ public class SharedHomeViewModel extends ViewModel {
             (Collections.singletonList(RequirementsViewModel.collegeCourses)), new ArrayList<Course>());
     Checklist universityChecklist = new Checklist(new ArrayList<RequirementCategory>
             (Collections.singletonList(RequirementsViewModel.universityCourses)), new ArrayList<Course>());
+    // Holds location of seekBar
+    int seekBarProgress = 0;
+
+    /*
+     * Getter method for seekBarProgress
+     */
+    public int getSeekBarProgress() {
+        return seekBarProgress;
+    }
 
     /*
      * Getter method for checklist
@@ -57,6 +68,13 @@ public class SharedHomeViewModel extends ViewModel {
      */
     public int getMyYearEntered() {
         return yearEntered;
+    }
+
+    /*
+     * Setter method for seekBarProgress
+     */
+    public void setSeekBarProgress(int myProgress) {
+        seekBarProgress = myProgress;
     }
 
     /*
