@@ -15,7 +15,8 @@
     <string name="enter_minor">Enter minor</string>
     <string name="enter_major">Enter major</string>
     <string name="enter_college">Enter college</string>
-    <string name="enter_incoming_year">Year you entered UCSD</string>
+    <string name="enter_incoming_year">Incoming year</string>
+    <string name="enter_graduating_year">Graduating year</string>
     <string name="incoming_year">Incoming Year</string>
     <string name="welcome_screen">Welcome Screen</string>
     <string name="title_profile">Profile</string>
