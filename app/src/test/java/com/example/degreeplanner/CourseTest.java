@@ -1,12 +1,10 @@
 package com.example.degreeplanner;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
 import com.example.degreeplanner.classes.Course;
 import com.example.degreeplanner.enums.GradingOption;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
@@ -17,10 +15,27 @@ import static org.junit.Assert.assertTrue;
 
 public class CourseTest {
 
-    /*@Before
+    Course COGS1;
+    Course CSE11;
+    Course JAP1A;
+    Course CSE12;
+    Course DSC10;
+    Course JAP1B;
+    Course CSE20;
+    Course DSC20;
+    Course JAP1C;
+    @Before
     public void setUp() {
-        //intent = new Intent(ApplicationProvider.getApplicationContext(), HeightActivity.class);
-    }*/
+        COGS1 = new Course("COGS", "1", GradingOption.LETTER, 4, "");
+        CSE11 = new Course("CSE", "11", GradingOption.LETTER, 4, "");
+        JAP1A = new Course("JAP", "1A", GradingOption.LETTER, 5, "");
+        CSE12 = new Course("CSE", "12", GradingOption.LETTER, 4, "");
+        DSC10 = new Course("DSC", "10", GradingOption.LETTER, 4, "");
+        JAP1B = new Course("JAP", "1B", GradingOption.LETTER, 5, "");
+        CSE20 = new Course("CSE", "20", GradingOption.LETTER, 4, "");
+        DSC20 = new Course("DSC", "20", GradingOption.LETTER, 4, "");
+        JAP1C = new Course("JAP", "1C", GradingOption.LETTER, 5, "");
+    }
 
     @Test
     public void testMinConstructor() { // test getters and default values for course
@@ -144,6 +159,39 @@ public class CourseTest {
         assertEquals(prereqs, course.getPrereqs());
         assertEquals(completed, course.getPrereqs());
         assertTrue(course.prereqsFulfilled(completed));
+    }
+
+    @Test
+    public void testAddPrereq() {
+        CSE20.addPrereq(CSE11);
+        assertTrue(CSE20.getPrereqs().contains(CSE11));
+
+        assertFalse(CSE12.getPrereqs().contains(CSE11));
+        CSE12.addPrereq(CSE11);
+        assertTrue(CSE12.getPrereqs().contains(CSE11));
+    }
+
+    @Test
+    public void testRemovePrereq() {
+        CSE20.addPrereq(CSE11);
+        assertTrue(CSE20.getPrereqs().contains(CSE11));
+        CSE20.removePrereq(CSE11);
+        assertFalse(CSE20.getPrereqs().contains(CSE11));
+
+    }
+
+    @Test
+    public void testSameCourseNameAs() {
+        Course CSE20pnp = new Course("CSE", "20", GradingOption.PNP, 4, "");
+        assertTrue(CSE20.sameCourseNameAs(CSE20pnp));
+    }
+
+    @Test
+    public void testCompareCourses() {
+        Course CSE20pnp = new Course("CSE", "20", GradingOption.PNP, 4, "");
+        assertFalse(CSE20.compareCourses(CSE20pnp));
+        Course CSE20letter = new Course("CSE", "20", GradingOption.LETTER, 4, "retaking");
+        assertTrue(CSE20.compareCourses(CSE20letter));
     }
 
     // test the prereq fulfillment method with fewer completed courses
