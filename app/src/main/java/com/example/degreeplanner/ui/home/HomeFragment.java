@@ -9,15 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.FrameLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -36,7 +33,6 @@ public class HomeFragment extends Fragment {
     private SharedHomeViewModel mViewModel;
     TabAdapter tabAdapter;
     ViewPager2 viewPager;
-    String selectedItem;
 
     private static final String[] tabNames = new String[] {"Checklist", "Quarter Plan"};
 
@@ -60,16 +56,6 @@ public class HomeFragment extends Fragment {
                 openEditQuarterPlan(container, v);
             }
         });
-
-        // Open suggested courses dialog once button is pressed
-        ImageButton dialogBtn = root.findViewById(R.id.suggested_courses_button);
-        dialogBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                openSuggestedCourses();
-            }
-        });
-
         return root;
     }
 
@@ -85,14 +71,6 @@ public class HomeFragment extends Fragment {
     }
 
     /*
-     * Function to open the suggested coursed dialog on click
-     */
-    public void openSuggestedCourses() {
-        DialogFragment dialogFragment = new PrereqDialog();
-        dialogFragment.show(getParentFragmentManager(), "Suggested Courses");
-    }
-
-    /*
      * Function to open the edit quarter plan popup on click
      */
     public void openEditQuarterPlan(ViewGroup container, View view) {
@@ -100,10 +78,10 @@ public class HomeFragment extends Fragment {
         View popupView = getLayoutInflater().inflate(R.layout.popup_window, container, false);
 
         // create the popup window
-        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
-        int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        int width = FrameLayout.LayoutParams.MATCH_PARENT;
+        int height = FrameLayout.LayoutParams.WRAP_CONTENT;
 
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, 550, true);
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
 
         // show the popup window
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 600);

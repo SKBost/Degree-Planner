@@ -24,27 +24,22 @@ public class RequirementsViewModel extends ViewModel {
 
 
     public ArrayList<Course> getAllCourses() {
-        // todo: do a null check
         return unplannedCourses.getCourses();
     }
 
     public ArrayList<Course> getMajorCourses() {
-        // todo: do a null check
         return majorCourses.getCourses();
     }
 
     public ArrayList<Course> getMinorCourses() {
-        // todo: do a null check
         return minorCourses.getCourses();
     }
 
     public ArrayList<Course> getCollegeCourses() {
-        // todo: do a null check
         return collegeCourses.getCourses();
     }
 
     public ArrayList<Course> getUniversityCourses() {
-        // todo: do a null check
         return universityCourses.getCourses();
     }
 }

@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             myCollege = "N/A";
         }
         if (myYearEntered.equals("")) {
-            Log.e("error check", "here");
             myYearEntered = "2019";
         }
         if (myGraduatingYear.equals("")) {

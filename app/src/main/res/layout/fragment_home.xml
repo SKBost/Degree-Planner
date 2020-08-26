@@ -44,18 +44,6 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/suggested_courses_button"
-        android:layout_width="44dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="363dp"
-        android:layout_marginBottom="530dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_suggested_course"
-        android:tint="@color/dark_grey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/edit_quarter_plan_button"
         android:layout_width="wrap_content"
