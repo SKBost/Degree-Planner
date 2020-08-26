@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -147,12 +148,41 @@ public class HomeFragment extends Fragment {
                         mViewModel.getChecklist("university").addCompletedCourse(c);
                     }
                 }
-                // Remove class from list of plannable courses
+                // Remove class from list of plannable courses and show warning if prereqs not met
                 RequirementsViewModel.unplannedCourses.removeCourse(c);
+                checkPrereqs(c);
                 // Close popup
                 popupWindow.dismiss();
             }
         });
+    }
+
+    public void checkPrereqs(Course mCourse) {
+        String category = null;
+        if (RequirementsViewModel.majorCourses.containsCourse(mCourse)) {
+            category = "major";
+        }
+        if (RequirementsViewModel.minorCourses.containsCourse(mCourse)) {
+            category = "minor";
+        }
+        if (RequirementsViewModel.collegeCourses.containsCourse(mCourse)) {
+            category = "college";
+        }
+        if (RequirementsViewModel.universityCourses.containsCourse(mCourse)) {
+            category = "university";
+        }
+        boolean prereqsFulfilled =
+                mCourse.prereqsFulfilled(mViewModel.getChecklist(category).getCompletedCourses());
+        if (prereqsFulfilled) {
+            String successText = "Course has been successfully planned";
+            Toast toast = Toast.makeText(getContext(), successText, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else {
+            String warningText = "Warning: Prerequisites for this class may not have been fulfilled";
+            Toast toast = Toast.makeText(getContext(), warningText, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }
 

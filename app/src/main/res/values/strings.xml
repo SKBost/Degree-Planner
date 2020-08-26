@@ -60,4 +60,6 @@
     <string name="suggested_courses">Suggested Courses</string>
     <string name="completed_text">Completed</string>
     <string name="uncompleted_text">Uncompleted</string>
+    <string name="total_units">Total Units</string>
+    <string name="total_units_text">Total Units: </string>
 </resources>
