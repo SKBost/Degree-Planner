@@ -18,19 +18,23 @@ public class ScheduleTest {
      * When comparing, the order of adding different courses and quarters must be the same as those
      * in the setup. Could be a potential issue. May be solved by quarter sorting mechanism
      */
-
+    // set up the first three quarters
     Quarter firstFall;
     Quarter firstWinter;
     Quarter firstSpring;
+
+    ArrayList<Course> prereqs;
+    ArrayList<Course> untaken;
     ArrayList<Quarter> threeQuarters;
     ArrayList<Quarter> oneQuarter;
+
+    // schedules of different number of quarters
     Schedule fullSchedule;
     Schedule emptySchedule;
     Schedule oneThirdFullSchedule;
 
     @Before
     public void setUp() {
-        //intent = new Intent(ApplicationProvider.getApplicationContext(), HeightActivity.class);
 
         // set up first 3 quarters
         Course COGS1 = new Course("COGS", "1", GradingOption.LETTER, 4, "");
@@ -38,7 +42,8 @@ public class ScheduleTest {
         Course JAP1A = new Course("JAP", "1A", GradingOption.LETTER, 5, "");
         ArrayList<Course> testCourses1 = new ArrayList<Course>();
         testCourses1.add(COGS1);
-        testCourses1.add(CSE11);
+        testCourses1.add(
+                CSE11);
         testCourses1.add(JAP1A);
         firstFall = new Quarter(13, "firstFall", testCourses1);
         Course CSE12 = new Course("CSE", "12", GradingOption.LETTER, 4, "");
@@ -76,6 +81,13 @@ public class ScheduleTest {
 
         // a schedule with only one quarter
         oneThirdFullSchedule = new Schedule(oneQuarter);
+
+        // a list of prereqs for CSE20
+        prereqs = new ArrayList<Course>();
+        prereqs.add(CSE11);
+        // untaken courses
+        untaken = new ArrayList<>();
+        untaken.add(CSE20);
     }
 
     @Test
@@ -122,10 +134,33 @@ public class ScheduleTest {
         assertEquals(13.0, oneThirdFullSchedule.getTotalUnits());
     }
 
+    /**
+     * Notes: for the method getCoursesCompletedBeforeQuarter(qtrIdx)
+     * qtrIdx = 1 refer to before the second quarter, and that may cause some confusion for the users
+     */
+    @Test
+    public void testGetCoursesCompletedBeforeQuarter() {
+        ArrayList<Course> cpltBefore = fullSchedule.getCoursesCompletedBeforeQuarter(1);
+        assertEquals(cpltBefore, firstFall.getCourses());
+    }
+
     @Test
     public void testGetSuggestedCourses() {
+        Course CSE20 = new Course("CSE", "20", GradingOption.LETTER, 4, "");
+        CSE20.setPrereqs(prereqs);
+        ArrayList<Course> cpltBefore = fullSchedule.getCoursesCompletedBeforeQuarter(1);
+        ArrayList<Course> expectedSuggestion = new ArrayList<>();
+        expectedSuggestion.add(CSE20);
+        ArrayList<Course> actualSuggestion = fullSchedule.getSuggestedCourses(untaken, 1);
+        assertEquals(actualSuggestion, expectedSuggestion);
 
-        assertEquals(13.0, oneThirdFullSchedule.getTotalUnits());
+        /**
+         * Notes for getSuggestedCourses:
+         * Test will only pass if the exact same course is used in the parameter untakenCourses,
+         * and the list of course returned by getCoursesCompletedBeforeQuarter()
+         * Test will not pass in other cases.
+         */
+
     }
 
 
