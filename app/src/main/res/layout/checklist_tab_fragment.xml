@@ -9,99 +9,112 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="50dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:orientation="vertical" >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <SeekBar
-            android:id="@+id/checklist_seek_bar"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="326dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:progress="0"
-            android:layout_marginBottom="20dp"/>
+            <SeekBar
+                android:id="@+id/checklist_seek_bar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="326dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/suggested_courses_button"
+                android:progress="0" />
+
+            <ImageButton
+                android:id="@+id/suggested_courses_button"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_suggested_course"
+                android:tint="@color/dark_salmon" />
+
+        </RelativeLayout>
 
         <TextView
-                android:id="@+id/checklist_major"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="@string/major"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"/>
+            android:id="@+id/checklist_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/major"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
 
-            <ExpandableListView
-                android:id="@+id/expandableListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@android:color/white"
-                android:dividerHeight="0.5dp"
-                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" >
-            </ExpandableListView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/expandableListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/white"
+            android:padding="10dp"
+            android:dividerHeight="0.5dp" />
 
-            <TextView
-                android:id="@+id/checklist_minor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="@string/minor"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/checklist_minor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/minor"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp" />
 
-            <ExpandableListView
-                android:id="@+id/expandable_list_minor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@android:color/white"
-                android:dividerHeight="0.5dp"
-                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" >
-            </ExpandableListView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/expandable_list_minor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:divider="@android:color/white"
+            android:dividerHeight="0.5dp" />
 
-            <TextView
-                android:id="@+id/checklist_college"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="@string/college"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/checklist_college"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/college"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp" />
 
-            <ExpandableListView
-                android:id="@+id/expandable_list_college"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@android:color/white"
-                android:dividerHeight="0.5dp"
-                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" >
-            </ExpandableListView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/expandable_list_college"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:divider="@android:color/white"
+            android:dividerHeight="0.5dp" />
 
-            <TextView
-                android:id="@+id/checklist_university"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="@string/university"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/checklist_university"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/university"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp" />
 
-            <ExpandableListView
-                android:id="@+id/expandable_list_university"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@android:color/white"
-                android:dividerHeight="0.5dp"
-                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" >
-            </ExpandableListView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/expandable_list_university"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:divider="@android:color/white"
+            android:dividerHeight="0.5dp" />
 
     </LinearLayout>
 </ScrollView>

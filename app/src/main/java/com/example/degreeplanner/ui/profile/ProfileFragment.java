@@ -21,36 +21,32 @@ import com.example.degreeplanner.R;
 public class ProfileFragment extends Fragment{
 
     private ProfileViewModel profileViewModel;
-    private int numYearsInt;
-    private int yearEntered;
-    private EditText numYearsText;
+    // Information from welcome screen
+    private String majorString;
+    private String minorString;
+    private String collegeString;
+    private String yearEnteredString;
+    private String graduatingYearString;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        numYearsText = (EditText) root.findViewById(R.id.edit_text_num_years);
-        numYearsInt = Integer.parseInt(String.valueOf(numYearsText.getText()));
-
-        EditText yearEnteredText = (EditText) root.findViewById(R.id.edit_text_year_entered);
-        yearEntered = Integer.parseInt(String.valueOf(yearEnteredText.getText()));
+        // Set text
+        EditText majorFragmentText = root.findViewById(R.id.edit_text_major);
+        majorFragmentText.setText(profileViewModel.major);
+        EditText minorFragmentText = root.findViewById(R.id.edit_text_minor);
+        minorFragmentText.setText(profileViewModel.minor);
+        EditText collegeFragmentText = root.findViewById(R.id.edit_text_college);
+        collegeFragmentText.setText(profileViewModel.college);
+        EditText yearEnteredFragmentText = root.findViewById(R.id.edit_text_year_entered);
+        yearEnteredFragmentText.setText(profileViewModel.yearEntered);
+        EditText numYearsFragmentText = root.findViewById(R.id.edit_text_num_years);
+        numYearsFragmentText.setText(Integer.toString(profileViewModel.numYears));
 
         return root;
-    }
-
-    /*
-     * Getter method for numYearsInt
-     */
-    public int getNumYears() {
-        return numYearsInt;
-    }
-
-    /*
-     * Getter method for yearEntered
-     */
-    public int getYearEntered() {
-        return yearEntered;
     }
 
 }

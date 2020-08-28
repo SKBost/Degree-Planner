@@ -63,4 +63,10 @@
     <string name="enter_num_years">Enter number of years</string>
     <string name="enter_year_entered">Enter year entered</string>
     <string name="completed">Completed?</string>
+    <string name="ok">OK</string>
+    <string name="suggested_courses">Suggested Courses</string>
+    <string name="completed_text">Completed</string>
+    <string name="uncompleted_text">Uncompleted</string>
+    <string name="total_units">Total Units</string>
+    <string name="total_units_text">Total Units: </string>
 </resources>

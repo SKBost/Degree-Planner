@@ -36,14 +36,16 @@ public class AddRequirement extends AppCompatActivity {
             }
         });
 
-        final EditText department = (EditText) findViewById(R.id.text_department);
-        final EditText course_code = (EditText) findViewById(R.id.text_course_code);
-        final EditText units = (EditText) findViewById(R.id.number_units);
-        final EditText notes = (EditText) findViewById(R.id.text_notes);
-        final Switch passNoPass = (Switch) findViewById(R.id.switch_p_np);
+        final EditText department = findViewById(R.id.text_department);
+        final EditText course_code = findViewById(R.id.text_course_code);
+        final EditText units = findViewById(R.id.number_units);
+        final EditText notes = findViewById(R.id.text_notes);
+        final Switch passNoPass = findViewById(R.id.switch_p_np);
+        final EditText preq_department = findViewById(R.id.text_preq_department);
+        final EditText preq_code = findViewById(R.id.text__prereq_course_code);
 
         // Set up drop down spinner
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner = findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.add_req_options, R.layout.spinner_item);
@@ -67,7 +69,7 @@ public class AddRequirement extends AppCompatActivity {
         });
 
         // Store information once the save button is pressed
-        Button saveReq = (Button) findViewById(R.id.save_button);
+        Button saveReq = findViewById(R.id.save_button);
         saveReq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +80,8 @@ public class AddRequirement extends AppCompatActivity {
                 String units_text = units.getText().toString();
                 String notes_text = notes.getText().toString();
                 GradingOption pass = GradingOption.LETTER;
+                String preq_department_text = preq_department.getText().toString();
+                String preq_code_text = preq_code.getText().toString();
 
                 // todo: handle empty entries
                 if (passNoPass.isChecked()) {
@@ -86,6 +90,11 @@ public class AddRequirement extends AppCompatActivity {
                 // Create course object from info
                 Course newCourse = new Course(department_text, course_code_text,
                         pass, Double.parseDouble(units_text), notes_text);
+                // Add prereq if possible
+                if (!preq_department_text.equals("")) {
+                    Course preqCourse = new Course(preq_department_text, preq_code_text);
+                    newCourse.addPrereq(preqCourse);
+                }
                 // Add to correct category based on spinner
                 switch (selectedItem) {
                     // Add classes to correct category

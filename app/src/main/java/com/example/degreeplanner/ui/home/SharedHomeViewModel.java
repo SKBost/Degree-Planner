@@ -18,8 +18,8 @@ public class SharedHomeViewModel extends ViewModel {
 
     // Create Schedule class
     protected Schedule mySchedule = new Schedule();
-    // todo: change to user input value
     int yearEntered = 2019;
+    int numYears = 4;
     // Checklists for all categories
     Checklist majorChecklist = new Checklist(new ArrayList<RequirementCategory>
             (Collections.singletonList(RequirementsViewModel.majorCourses)), new ArrayList<Course>());
@@ -78,11 +78,20 @@ public class SharedHomeViewModel extends ViewModel {
     }
 
     /*
+     * Setter method for yearEntered
+     */
+    public void setYearEntered(int myYearEntered) {
+        yearEntered = myYearEntered;
+    }
+
+    public void setNumYears(int myNumYears) {
+        numYears = myNumYears;
+    }
+
+    /*
      * Method to create 4 quarters per year and add to the schedule
      */
     public void createQuarters() {
-        // todo: replace with user input
-        int numYears = 4;
         int year = yearEntered;
         for (int i = 0, j = 0; i < numYears; i+=1, year+=1, j+=4) {
             createQuartersHelper(j, year);

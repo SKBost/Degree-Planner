@@ -2,17 +2,13 @@ package com.example.degreeplanner.ui.requirements;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,10 +47,10 @@ public class RequirementsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         // Create recycler view layouts for all categories
-        RecyclerView majorView = (RecyclerView) getView().findViewById(R.id.req_recycler_view);
-        RecyclerView minorView = (RecyclerView) getView().findViewById(R.id.req_recyclerView_minor);
-        RecyclerView collegeView = (RecyclerView) getView().findViewById(R.id.req_recycler_view_college);
-        RecyclerView universityView = (RecyclerView) getView().findViewById(R.id.req_recycler_view_university);
+        RecyclerView majorView = getView().findViewById(R.id.req_recycler_view);
+        RecyclerView minorView = getView().findViewById(R.id.req_recyclerView_minor);
+        RecyclerView collegeView = getView().findViewById(R.id.req_recycler_view_college);
+        RecyclerView universityView = getView().findViewById(R.id.req_recycler_view_university);
         this.displayCourses(majorView, "Major");
         this.displayCourses(minorView, "Minor");
         this.displayCourses(collegeView, "College");
@@ -74,7 +70,8 @@ public class RequirementsFragment extends Fragment {
         recyclerView.addItemDecoration(new VerticalSpaceItemDecorator(20));
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         // Adapter initialization
-        RequirementAdapter adapter = new RequirementAdapter(getActivity(), this.displayCoursesHelper(category));
+        RequirementAdapter adapter =
+                new RequirementAdapter(getActivity(), this.displayCoursesHelper(category), category);
         recyclerView.setAdapter(adapter);
     }
 

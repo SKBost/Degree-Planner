@@ -6,14 +6,33 @@ import androidx.lifecycle.ViewModel;
 
 public class ProfileViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    String major;
+    String minor;
+    String college;
+    String yearEntered;
+    int numYears;
 
-    public ProfileViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is profile fragment");
+    /*
+     * Getter method for numYears
+     */
+    public int getNumYears() { return numYears; }
+
+    /*
+     * Getter method for yearEntered
+     */
+    public int getYearEntered() {
+        return Integer.parseInt(yearEntered);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    /*
+     * Sets profile information based on info from welcome screen
+     */
+    public void setProfileInformation
+            (String myMajor, String myMinor, String myCollege, String myYearEntered, String myYearGraduated) {
+        major = myMajor;
+        minor = myMinor;
+        college = myCollege;
+        yearEntered = myYearEntered;
+        numYears = Integer.parseInt(myYearGraduated) - Integer.parseInt(myYearEntered);
     }
 }

@@ -1,52 +1,39 @@
 package com.example.degreeplanner.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.degreeplanner.R;
 import com.example.degreeplanner.classes.Course;
-import com.example.degreeplanner.ui.home.checklist.ChecklistAdapter;
-import com.example.degreeplanner.ui.requirements.AddRequirement;
 import com.example.degreeplanner.ui.requirements.RequirementsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HomeFragment extends Fragment {
 
     private SharedHomeViewModel mViewModel;
     TabAdapter tabAdapter;
     ViewPager2 viewPager;
-    String selectedItem;
 
     private static final String[] tabNames = new String[] {"Checklist", "Quarter Plan"};
 
@@ -70,8 +57,6 @@ public class HomeFragment extends Fragment {
                 openEditQuarterPlan(container, v);
             }
         });
-
-
         return root;
     }
 
@@ -94,16 +79,16 @@ public class HomeFragment extends Fragment {
         View popupView = getLayoutInflater().inflate(R.layout.popup_window, container, false);
 
         // create the popup window
-        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
-        int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        int width = FrameLayout.LayoutParams.MATCH_PARENT;
+        int height = FrameLayout.LayoutParams.WRAP_CONTENT;
 
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, 550, true);
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
 
         // show the popup window
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 600);
 
         // Set up drop down spinner for quarter
-        Spinner quarterSpinner = (Spinner) popupView.findViewById(R.id.spinner_quarter);
+        Spinner quarterSpinner = popupView.findViewById(R.id.spinner_quarter);
         // Create an ArrayAdapter using the string array and a spinner layout
         ArrayAdapter<CharSequence> quarterAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.quarter_spinner_options, R.layout.spinner_item);
@@ -113,7 +98,7 @@ public class HomeFragment extends Fragment {
         quarterSpinner.setAdapter(quarterAdapter);
 
         // Set up drop down spinner for courses
-        Spinner courseSpinner = (Spinner) popupView.findViewById(R.id.spinner_courses);
+        Spinner courseSpinner = popupView.findViewById(R.id.spinner_courses);
         // Create an array with all course names
         RequirementsViewModel req_model = new RequirementsViewModel();
         ArrayList<String> myCourses = new ArrayList<>();
@@ -138,7 +123,7 @@ public class HomeFragment extends Fragment {
      */
     public void whenPlanned(View view, PopupWindow popupWindow, Spinner myCourse,
                             Spinner myQuarter, EditText myYear, CheckBox myCompletion) {
-        Button planButton = (Button) view.findViewById(R.id.plan_button);
+        Button planButton = view.findViewById(R.id.plan_button);
         planButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -163,12 +148,41 @@ public class HomeFragment extends Fragment {
                         mViewModel.getChecklist("university").addCompletedCourse(c);
                     }
                 }
-                // Remove class from list of plannable courses
+                // Remove class from list of plannable courses and show warning if prereqs not met
                 RequirementsViewModel.unplannedCourses.removeCourse(c);
+                checkPrereqs(c);
                 // Close popup
                 popupWindow.dismiss();
             }
         });
+    }
+
+    public void checkPrereqs(Course mCourse) {
+        String category = null;
+        if (RequirementsViewModel.majorCourses.containsCourse(mCourse)) {
+            category = "major";
+        }
+        if (RequirementsViewModel.minorCourses.containsCourse(mCourse)) {
+            category = "minor";
+        }
+        if (RequirementsViewModel.collegeCourses.containsCourse(mCourse)) {
+            category = "college";
+        }
+        if (RequirementsViewModel.universityCourses.containsCourse(mCourse)) {
+            category = "university";
+        }
+        boolean prereqsFulfilled =
+                mCourse.prereqsFulfilled(mViewModel.getChecklist(category).getCompletedCourses());
+        if (prereqsFulfilled) {
+            String successText = "Course has been successfully planned";
+            Toast toast = Toast.makeText(getContext(), successText, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else {
+            String warningText = "Warning: Prerequisites for this class may not have been fulfilled";
+            Toast toast = Toast.makeText(getContext(), warningText, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }
 

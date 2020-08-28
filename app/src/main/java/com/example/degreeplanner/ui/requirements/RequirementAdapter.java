@@ -1,5 +1,6 @@
 package com.example.degreeplanner.ui.requirements;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.degreeplanner.R;
@@ -17,15 +19,19 @@ import com.example.degreeplanner.classes.Course;
 import java.util.ArrayList;
 
 public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.ViewHolder> {
+    Context mContext;
     ArrayList<Course> courses;
     LayoutInflater mInflater;
+    String mCategory;
 
     /*
      * Constructor for adapter
      */
-    public RequirementAdapter(Context context, ArrayList<Course> courses) {
+    public RequirementAdapter(Context context, ArrayList<Course> courses, String category) {
         this.mInflater = LayoutInflater.from(context);
         this.courses = courses;
+        mContext = context;
+        mCategory = category;
     }
 
     /*
@@ -39,7 +45,7 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
          */
         ViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.textView);
+            textView = itemView.findViewById(R.id.textView);
         }
     }
 
@@ -49,7 +55,6 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = mInflater.inflate(R.layout.view_text, parent, false);
         return new ViewHolder(view);
     }
@@ -60,6 +65,19 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
         Course myCourse = courses.get(position);
         String courseName = myCourse.getDept() + " " + myCourse.getCode();
         myTextView.setText(courseName);
+        // Set color based on category
+        if (mCategory.equals("Major")){
+            //myTextView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
+        }
+        if (mCategory.equals("Minor")){
+            //myTextView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
+        }
+        if (mCategory.equals("College")){
+            //myTextView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
+        }
+        if (mCategory.equals("University")){
+            //myTextView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
+        }
     }
 
     /*

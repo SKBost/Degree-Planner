@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.degreeplanner.R;
@@ -85,7 +86,7 @@ public class QuarterPlanTabFragment extends Fragment {
                 Quarter currQuarter = mViewModel.getMySchedule().getQuarters().get(mySeekBar.getProgress());
                 Toast.makeText(context, currQuarter.getName(), Toast.LENGTH_SHORT).show();
                 // Initialize the recycler view which holds the list of courses
-                RecyclerView quarterView = (RecyclerView) getView().findViewById(R.id.quarter_plan_recycler);
+                RecyclerView quarterView = getView().findViewById(R.id.quarter_plan_recycler);
                 // set a GridLayoutManager with default vertical orientation and 3 number of columns
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
                 // Add space between rows
@@ -94,6 +95,11 @@ public class QuarterPlanTabFragment extends Fragment {
                 // Adapter initialization
                 QuarterPlanAdapter adapter = new QuarterPlanAdapter(getActivity(), currQuarter.getCourses());
                 quarterView.setAdapter(adapter);
+                // Show total units
+                double totalUnits = currQuarter.getTotalUnits();
+                TextView totalUnitsText = getView().findViewById(R.id.total_units_text);
+                String totalUnitsString = getString(R.string.total_units_text) + " " + totalUnits;
+                totalUnitsText.setText(totalUnitsString);
             }
         });
     }
