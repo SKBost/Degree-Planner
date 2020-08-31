@@ -1,13 +1,10 @@
 package com.example.degreeplanner;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
 import com.example.degreeplanner.classes.Course;
 import com.example.degreeplanner.classes.Quarter;
 import com.example.degreeplanner.enums.GradingOption;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
@@ -85,8 +82,38 @@ public class QuarterTest {
         assertEquals(true, quarter.hasValidUnitNum());
         // note: below 12, but valid at this point only because we check for at or below 22 (8/4/20)
     }
-
-
+    /*
+    @Test
+    public void testExtractDigits() {
+        Course COGS1 = new Course("COGS", "1", GradingOption.LETTER, 4, "");
+        Course CSE11 = new Course("CSE", "11", GradingOption.LETTER, 4, "");
+        Course JAP1A = new Course("JAP", "1A", GradingOption.LETTER, 5, "");
+        ArrayList<Course> testCourses1 = new ArrayList<Course>();
+        testCourses1.add(COGS1);
+        testCourses1.add(CSE11);
+        testCourses1.add(JAP1A);
+        Quarter firstFall = new Quarter(13, "firstFall", testCourses1);
+        assertEquals(1, firstFall.extractDigits(COGS1.getCode()));
+        assertEquals(11, firstFall.extractDigits(CSE11.getCode()));
+        assertEquals(1, firstFall.extractDigits(JAP1A.getCode()));
+    }
+    */
+    /*
+    @Test
+    public void testExtractLetters() {
+        Course COGS1 = new Course("COGS", "1", GradingOption.LETTER, 4, "");
+        Course CSE11 = new Course("CSE", "11", GradingOption.LETTER, 4, "");
+        Course JAP1A = new Course("JAP", "1A", GradingOption.LETTER, 5, "");
+        ArrayList<Course> testCourses1 = new ArrayList<Course>();
+        testCourses1.add(COGS1);
+        testCourses1.add(CSE11);
+        testCourses1.add(JAP1A);
+        Quarter firstFall = new Quarter(13, "firstFall", testCourses1);
+        assertEquals("", firstFall.extractLetters(COGS1.getCode()));
+        assertEquals("", firstFall.extractLetters(CSE11.getCode()));
+        assertEquals("A", firstFall.extractLetters(JAP1A.getCode()));
+    }
+    */
 //TODO: add more tests
     /*
     @Test
@@ -94,4 +121,8 @@ public class QuarterTest {
 
     }
     */
+    @Test
+    public void testReorder() {
+
+    }
 }
