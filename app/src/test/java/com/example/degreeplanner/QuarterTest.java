@@ -123,6 +123,22 @@ public class QuarterTest {
     */
     @Test
     public void testReorder() {
-
+        Course COGS1 = new Course("COGS", "1", GradingOption.LETTER, 4, "");
+        Course CSE11 = new Course("CSE", "11", GradingOption.LETTER, 4, "");
+        Course JAP1A = new Course("JAP", "1A", GradingOption.LETTER, 5, "");
+        ArrayList<Course> testCourses1 = new ArrayList<Course>();
+        testCourses1.add(COGS1);
+        testCourses1.add(CSE11);
+        testCourses1.add(JAP1A);
+        Quarter firstFall = new Quarter(13, "firstFall", testCourses1);
+        // setting order of the test quarter: COGS1, CSE11, JAP1A
+        assertEquals(COGS1, firstFall.getCourses().get(0));
+        assertEquals(CSE11, firstFall.getCourses().get(1));
+        assertEquals(JAP1A, firstFall.getCourses().get(2));
+        // expected after reordering: COGS1, JAP1A, CSE11
+        firstFall.reorder(0, firstFall.getCourses().size() - 1);
+        assertEquals(COGS1, firstFall.getCourses().get(0));
+        assertEquals(JAP1A, firstFall.getCourses().get(1));
+        assertEquals(CSE11, firstFall.getCourses().get(2));
     }
 }
