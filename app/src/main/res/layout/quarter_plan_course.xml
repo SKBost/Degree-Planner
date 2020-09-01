@@ -7,13 +7,14 @@
 
     <ImageView
         android:id="@+id/course_plan_background"
+        android:contentDescription="@string/course"
         android:layout_width="276dp"
         android:layout_height="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/course_plan_item" />
+/>
 
 
     <TextView
@@ -31,14 +32,15 @@
 
     <ImageView
         android:id="@+id/course_divider"
+        android:contentDescription="@string/course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="120dp"
-        android:tint="@color/dark_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/course_plan_background"
         app:layout_constraintTop_toTopOf="@+id/course_plan_background"
-        app:srcCompat="@android:drawable/status_bar_item_background" />
+        app:srcCompat="@android:drawable/status_bar_item_background"
+        app:tint="@color/dark_grey" />
 
     <TextView
         android:id="@+id/course_grading_option_text"

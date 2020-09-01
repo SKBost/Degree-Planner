@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,12 +30,7 @@ public class RequirementsFragment extends Fragment {
 
         // Move to add requirements screen once button is pressed
         FloatingActionButton addReqBtn = root.findViewById(R.id.add_requirement_button);
-        addReqBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                openAddReq();
-            }
-        });
+        addReqBtn.setOnClickListener(v -> openAddReq());
 
         return root;
     }
@@ -71,7 +67,7 @@ public class RequirementsFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         // Adapter initialization
         RequirementAdapter adapter =
-                new RequirementAdapter(getActivity(), this.displayCoursesHelper(category), category);
+                new RequirementAdapter(getActivity(), this.displayCoursesHelper(category), category, getChildFragmentManager());
         recyclerView.setAdapter(adapter);
     }
 

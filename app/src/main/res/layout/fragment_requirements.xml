@@ -16,10 +16,10 @@
         android:layout_marginTop="495dp"
         android:paddingBottom="20dp"
         android:clickable="true"
-        android:focusable="false"
+        android:focusable="true"
         android:src="@android:drawable/ic_input_add"
-        android:tint="@android:color/black"
-        app:backgroundTint="@color/light_blue"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/midnight_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scrollView2" />

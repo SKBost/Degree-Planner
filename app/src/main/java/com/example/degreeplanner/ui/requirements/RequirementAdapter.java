@@ -1,16 +1,16 @@
 package com.example.degreeplanner.ui.requirements;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.degreeplanner.R;
@@ -23,15 +23,17 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
     ArrayList<Course> courses;
     LayoutInflater mInflater;
     String mCategory;
+    FragmentManager mFragmentManager;
 
     /*
      * Constructor for adapter
      */
-    public RequirementAdapter(Context context, ArrayList<Course> courses, String category) {
+    public RequirementAdapter(Context context, ArrayList<Course> courses, String category, FragmentManager fragmentManager) {
         this.mInflater = LayoutInflater.from(context);
         this.courses = courses;
         mContext = context;
         mCategory = category;
+        mFragmentManager = fragmentManager;
     }
 
     /*
@@ -66,17 +68,46 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
         String courseName = myCourse.getDept() + " " + myCourse.getCode();
         myTextView.setText(courseName);
         // Set color based on category
-        if (mCategory.equals("Major")){
-            //myTextView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
+        setBackgroundColor(mCategory, myTextView);
+        myTextView.setOnClickListener(view -> {
+            // Show dialog that allows removal of a course
+            removeCourseDialog(myCourse, position);
+        });
+    }
+
+    public void removeCourseDialog(Course course, int mPosition) {
+        String courseDept = course.getDept();
+        String courseCode = course.getCode();
+        Bundle courseBundle = new Bundle();
+        courseBundle.putString("Department", courseDept);
+        courseBundle.putString("Code", courseCode);
+        DialogFragment dialog = new RemoveCourseDialog(mContext, courseBundle, this, mPosition, courses.size());
+        dialog.show(mFragmentManager, "Remove Course");
+        RemoveCourseDialog updateDialog = (RemoveCourseDialog) dialog;
+        if (updateDialog.getCourseRemoved()) {
+            courses.remove(mPosition);
         }
-        if (mCategory.equals("Minor")){
-            //myTextView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
-        }
-        if (mCategory.equals("College")){
-            //myTextView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
-        }
-        if (mCategory.equals("University")){
-            //myTextView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
+    }
+
+    /*
+     * Sets the background color of the text based on category
+     */
+    public void setBackgroundColor(String category, TextView textView) {
+        switch (mCategory) {
+            case "Major":
+                textView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
+                break;
+            case "Minor":
+                textView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_salmon));
+                break;
+            case "College":
+                textView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.light_green));
+                break;
+            case "University":
+                textView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.midnight_green_reduced_opacity));
+                break;
+            default:
+                textView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.baby_pink));
         }
     }
 

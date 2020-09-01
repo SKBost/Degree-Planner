@@ -32,11 +32,12 @@
 
             <ImageButton
                 android:id="@+id/suggested_courses_button"
+                android:contentDescription="@string/suggested_courses"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_suggested_course"
-                android:tint="@color/dark_salmon" />
+                android:tint="@color/midnight_green_reduced_opacity" />
 
         </RelativeLayout>
 

@@ -62,4 +62,6 @@
     <string name="uncompleted_text">Uncompleted</string>
     <string name="total_units">Total Units</string>
     <string name="total_units_text">Total Units: </string>
+    <string name="delete_course">Delete Course?</string>
+    <string name="cancel">Cancel</string>
 </resources>

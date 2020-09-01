@@ -1,23 +1,33 @@
 package com.example.degreeplanner.ui.home.quarter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.degreeplanner.R;
 import com.example.degreeplanner.classes.Course;
 import com.example.degreeplanner.enums.GradingOption;
+import com.example.degreeplanner.ui.requirements.RequirementsViewModel;
 
 import java.util.ArrayList;
 
 public class QuarterPlanAdapter extends RecyclerView.Adapter<QuarterPlanAdapter.ViewHolder> {
     ArrayList<Course> courses;
     LayoutInflater mInflater;
+    Context mContext;
 
     /*
      * Constructor for adapter
@@ -25,6 +35,7 @@ public class QuarterPlanAdapter extends RecyclerView.Adapter<QuarterPlanAdapter.
     public QuarterPlanAdapter(Context context, ArrayList<Course> courses) {
         this.mInflater = LayoutInflater.from(context);
         this.courses = courses;
+        mContext = context;
     }
 
     /*
@@ -34,15 +45,20 @@ public class QuarterPlanAdapter extends RecyclerView.Adapter<QuarterPlanAdapter.
         public TextView textViewCourse;
         public TextView textViewGradingOption;
         public TextView textViewUnits;
+        public ImageView courseBackground;
+        public Drawable unwrappedDrawable;
+
 
         /*
          * Constructor for ViewHolder
          */
         ViewHolder(View itemView) {
             super(itemView);
-            textViewCourse = (TextView) itemView.findViewById(R.id.course_name_text);
-            textViewGradingOption = (TextView) itemView.findViewById(R.id.course_grading_option_text);
-            textViewUnits = (TextView) itemView.findViewById(R.id.course_units_text);
+            textViewCourse = itemView.findViewById(R.id.course_name_text);
+            textViewGradingOption = itemView.findViewById(R.id.course_grading_option_text);
+            textViewUnits = itemView.findViewById(R.id.course_units_text);
+            courseBackground = itemView.findViewById(R.id.course_plan_background);
+            unwrappedDrawable = AppCompatResources.getDrawable(mContext, R.drawable.course_plan_item);
         }
     }
 
@@ -82,6 +98,48 @@ public class QuarterPlanAdapter extends RecyclerView.Adapter<QuarterPlanAdapter.
         TextView myUnitTextView = holder.textViewUnits;
         String units = Double.toString(myCourse.getUnits());
         myUnitTextView.setText(units);
+        // Set color of background
+        setBackgroundColor(myCourse, holder);
+    }
+
+    public void setBackgroundColor(Course myCourse, ViewHolder holder) {
+        ImageView myCourseBackground = holder.courseBackground;
+        Drawable courseDrawable = holder.unwrappedDrawable.mutate();
+        switch (findCategory(myCourse)) {
+            case "Major":
+                courseDrawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(mContext, R.color.baby_pink), PorterDuff.Mode.SRC_IN));
+                break;
+            case "Minor":
+                courseDrawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(mContext, R.color.dark_salmon), PorterDuff.Mode.SRC_IN));
+                break;
+            case "College":
+                courseDrawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(mContext, R.color.light_green), PorterDuff.Mode.SRC_IN));
+                break;
+            case "University":
+                courseDrawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(mContext, R.color.midnight_green_reduced_opacity), PorterDuff.Mode.SRC_IN));
+                break;
+            default:
+                courseDrawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(mContext, R.color.orange_red), PorterDuff.Mode.SRC_IN));
+        }
+        myCourseBackground.setImageDrawable(courseDrawable);
+    }
+
+    /*
+     * Find what category a course is in
+     */
+    public String findCategory(Course mCourse) {
+        if (RequirementsViewModel.majorCourses.containsCourse(mCourse)) {
+            return "Major";
+        }
+        else if (RequirementsViewModel.minorCourses.containsCourse(mCourse)) {
+            return "Minor";
+        }
+        else if (RequirementsViewModel.collegeCourses.containsCourse(mCourse)) {
+            return "College";
+        }
+        else {
+            return "University";
+        }
     }
 
     /*
