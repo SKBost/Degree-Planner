@@ -33,9 +33,16 @@
     <string name="enter_department">Enter department</string>
     <string name="enter_course_code">Enter course code</string>
     <string name="college_advising">College Advising</string>
+    <string name="revelle_advising">Revelle Advising</string>
+    <string name="muir_advising">Muir Advising</string>
+    <string name="marshall_advising">Marshall Advising</string>
+    <string name="warren_advising">Warren Advising</string>
+    <string name="erc_advising">ERC Advising</string>
+    <string name="sixth_advising">Sixth Advising</string>
+    <string name="seventh_advising">Seventh Advising</string>
     <string name="department_advising">Department Advising</string>
     <string name="ucsd_catalog">UCSD Catalog</string>
-    <string name="webreg">Webreg</string>
+    <string name="webreg">WebReg</string>
     <string name="element">Element</string>
     <string name="checklist">Checklist</string>
     <string name="quarter_plan">Quarter Plan</string>
