@@ -11,10 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.degreeplanner.R;
 import com.example.degreeplanner.classes.Course;
+import com.example.degreeplanner.ui.home.SharedHomeViewModel;
 
 import java.util.ArrayList;
 
@@ -24,16 +26,19 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
     LayoutInflater mInflater;
     String mCategory;
     FragmentManager mFragmentManager;
+    SharedHomeViewModel mViewModel;
 
     /*
      * Constructor for adapter
      */
-    public RequirementAdapter(Context context, ArrayList<Course> courses, String category, FragmentManager fragmentManager) {
+    public RequirementAdapter(Context context, ArrayList<Course> courses, String category,
+                              FragmentManager fragmentManager, SharedHomeViewModel viewModel) {
         this.mInflater = LayoutInflater.from(context);
         this.courses = courses;
         mContext = context;
         mCategory = category;
         mFragmentManager = fragmentManager;
+        mViewModel = viewModel;
     }
 
     /*
@@ -78,10 +83,13 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
     public void removeCourseDialog(Course course, int mPosition) {
         String courseDept = course.getDept();
         String courseCode = course.getCode();
+        String gradingOption = course.getOption().toString();
         Bundle courseBundle = new Bundle();
         courseBundle.putString("Department", courseDept);
         courseBundle.putString("Code", courseCode);
-        DialogFragment dialog = new RemoveCourseDialog(mContext, courseBundle, this, mPosition, courses.size());
+        courseBundle.putString("Grading Option", gradingOption);
+        DialogFragment dialog = new RemoveCourseDialog
+                (mContext, courseBundle, this, mPosition, courses.size(), mViewModel);
         dialog.show(mFragmentManager, "Remove Course");
         RemoveCourseDialog updateDialog = (RemoveCourseDialog) dialog;
         if (updateDialog.getCourseRemoved()) {

@@ -134,6 +134,22 @@ public class SharedHomeViewModel extends ViewModel {
         return addedCourse;
     }
 
+    /*
+     * Removes planned course from the associated quarter
+     */
+    public Course removeCourseFromQuarter(Course course) {
+        // Find quarter to remove course from
+        for (Quarter q: getMySchedule().getQuarters()) {
+            // Find and remove course
+            for (Course removedCourse: q.getCourses()) {
+                if (removedCourse.compareCourses(course)) {
+                    q.removeCourse(removedCourse);
+                    Log.e("SharedViewModel", "in remove course method");
+                }
+            }
+        }
+        return course;
+    }
 
 
 }

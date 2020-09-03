@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Degree Planner</string>
+    <string name="app_name">Degree Designer</string>
     <string name="welcome">Welcome!</string>
     <string name="ready">Ready to plan your degree?</string>
     <string name="go">Let\'s go!</string>

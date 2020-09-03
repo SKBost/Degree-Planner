@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.degreeplanner.R;
 import com.example.degreeplanner.classes.Course;
+import com.example.degreeplanner.ui.home.SharedHomeViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class RequirementsFragment extends Fragment {
 
     public RequirementsViewModel requirementsViewModel;
+    public SharedHomeViewModel sharedViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +62,8 @@ public class RequirementsFragment extends Fragment {
         // Create RequirementsViewModel object
         requirementsViewModel =
                 new ViewModelProvider(this).get(RequirementsViewModel.class);
+        sharedViewModel =
+                new ViewModelProvider(requireActivity()).get(SharedHomeViewModel.class);
         // set a GridLayoutManager with default vertical orientation and 3 number of columns
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),3);
         // Add space between rows
@@ -67,7 +71,7 @@ public class RequirementsFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         // Adapter initialization
         RequirementAdapter adapter =
-                new RequirementAdapter(getActivity(), this.displayCoursesHelper(category), category, getChildFragmentManager());
+                new RequirementAdapter(getActivity(), this.displayCoursesHelper(category), category, getChildFragmentManager(), sharedViewModel);
         recyclerView.setAdapter(adapter);
     }
 
