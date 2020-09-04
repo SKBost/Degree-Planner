@@ -56,6 +56,7 @@ public class QuarterPlanTabFragment extends Fragment {
     @Override
     public void onResume() {
         this.setSeekBar(seekBar, getContext());
+        showQuarterCourses(seekBar, getContext());
         super.onResume();
     }
 
@@ -82,26 +83,30 @@ public class QuarterPlanTabFragment extends Fragment {
              */
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                mViewModel.setSeekBarProgress(seekBar.getProgress());
-                Quarter currQuarter = mViewModel.getMySchedule().getQuarters().get(mySeekBar.getProgress());
-                Toast.makeText(context, currQuarter.getName(), Toast.LENGTH_SHORT).show();
-                // Initialize the recycler view which holds the list of courses
-                RecyclerView quarterView = getView().findViewById(R.id.quarter_plan_recycler);
-                // set a GridLayoutManager with default vertical orientation and 3 number of columns
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
-                // Add space between rows
-                quarterView.addItemDecoration(new VerticalSpaceItemDecorator(20));
-                quarterView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
-                // Adapter initialization
-                QuarterPlanAdapter adapter = new QuarterPlanAdapter(getActivity(), currQuarter.getCourses());
-                quarterView.setAdapter(adapter);
-                // Show total units
-                double totalUnits = currQuarter.getTotalUnits();
-                TextView totalUnitsText = getView().findViewById(R.id.total_units_text);
-                String totalUnitsString = getString(R.string.total_units_text) + " " + totalUnits;
-                totalUnitsText.setText(totalUnitsString);
+                showQuarterCourses(seekBar, context);
             }
         });
+    }
+
+    public void showQuarterCourses(SeekBar seekBar, Context context) {
+        mViewModel.setSeekBarProgress(seekBar.getProgress());
+        Quarter currQuarter = mViewModel.getMySchedule().getQuarters().get(seekBar.getProgress());
+        Toast.makeText(context, currQuarter.getName(), Toast.LENGTH_SHORT).show();
+        // Initialize the recycler view which holds the list of courses
+        RecyclerView quarterView = getView().findViewById(R.id.quarter_plan_recycler);
+        // set a GridLayoutManager with default vertical orientation and 3 number of columns
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
+        // Add space between rows
+        quarterView.addItemDecoration(new VerticalSpaceItemDecorator(20));
+        quarterView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
+        // Adapter initialization
+        QuarterPlanAdapter adapter = new QuarterPlanAdapter(getActivity(), currQuarter.getCourses());
+        quarterView.setAdapter(adapter);
+        // Show total units
+        double totalUnits = currQuarter.getTotalUnits();
+        TextView totalUnitsText = getView().findViewById(R.id.total_units_text);
+        String totalUnitsString = getString(R.string.total_units_text) + " " + totalUnits;
+        totalUnitsText.setText(totalUnitsString);
     }
 
 }
