@@ -6,13 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.resources.Webreg">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="308dp"
-        android:text="This is the webreg page"
+    <Button
+        android:id="@+id/webreg_link"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/resource_webreg_button"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/webreg"
+        android:textAllCaps="false"
+        android:textColor="@color/midnight_green"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,6 +29,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="#00FFFFFF"
+        android:contentDescription="@string/previous_page"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/actionModeCloseDrawable" />

@@ -2,6 +2,8 @@ package com.example.degreeplanner.ui.resources;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,11 +19,14 @@ public class Webreg extends AppCompatActivity {
 
         // Close page once button is pressed
         ImageButton closeButton = findViewById(R.id.webreg_back_button);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                finish();
-            }
-        });
+        closeButton.setOnClickListener(v -> finish());
+
+        findViewById(R.id.webreg_link).setOnClickListener(view -> resource_clicked("https://act.ucsd.edu/webreg2"));
+    }
+
+    public void resource_clicked(String url) {
+        Intent intent=new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 }

@@ -72,4 +72,6 @@
     <string name="delete_course">Delete Course?</string>
     <string name="cancel">Cancel</string>
     <string name="previous_page">Return to previous page</string>
+    <string name="all_departments">All Departments</string>
+    <string name="current_catalog">2020–2021 Catalog</string>
 </resources>
