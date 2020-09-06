@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
 
         // Instantiate shared preferences variables
         mPrefs = getActivity().getPreferences(MODE_PRIVATE);
-        getInfo();
+        this.getInfo();
 
         // Open popup window once button is pressed
         FloatingActionButton editPlanBtn = root.findViewById(R.id.edit_quarter_plan_button);
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getInfo();
+        this.getInfo();
     }
 
 
@@ -169,7 +169,7 @@ public class HomeFragment extends Fragment {
             checkPrereqs(c);
             // Add new info to shared preferences
             mViewModel.resetChecklists();
-            setInfo();
+            this.storeInfo();
             // Close popup
             popupWindow.dismiss();
         });
@@ -260,7 +260,7 @@ public class HomeFragment extends Fragment {
     /*
      * Store any new information to shared preferences
      */
-    public void setInfo() {
+    public void storeInfo() {
         String jsonSchedule = gson.toJson(mViewModel.getMySchedule());
         String jsonMajor = gson.toJson(mViewModel.getChecklist("major"));
         String jsonMinor = gson.toJson(mViewModel.getChecklist("minor"));

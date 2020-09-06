@@ -45,7 +45,7 @@ public class RequirementsFragment extends Fragment {
 
         // Instantiate shared preferences variables
         mPrefs = getActivity().getPreferences(MODE_PRIVATE);
-        getInfo();
+        this.getInfo();
 
         // Move to add requirements screen once button is pressed
         FloatingActionButton addReqBtn = root.findViewById(R.id.add_requirement_button);
@@ -70,7 +70,7 @@ public class RequirementsFragment extends Fragment {
         this.displayCourses(minorView, "Minor");
         this.displayCourses(collegeView, "College");
         this.displayCourses(universityView, "University");
-        storeInfo();
+        this.storeInfo();
     }
 
     /*
@@ -79,7 +79,7 @@ public class RequirementsFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        storeInfo();
+        this.storeInfo();
     }
 
     /*
@@ -95,7 +95,7 @@ public class RequirementsFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         // Adapter initialization
         RequirementAdapter adapter =
-                new RequirementAdapter(getActivity(), this.displayCoursesHelper(category), category, getChildFragmentManager(), sharedViewModel);
+                new RequirementAdapter(getActivity(), this.displayCoursesHelper(category), category, getChildFragmentManager(), sharedViewModel, getActivity());
         recyclerView.setAdapter(adapter);
     }
 

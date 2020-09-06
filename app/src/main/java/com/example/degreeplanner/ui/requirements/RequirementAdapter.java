@@ -1,5 +1,6 @@
 package com.example.degreeplanner.ui.requirements;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,18 +28,20 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
     String mCategory;
     FragmentManager mFragmentManager;
     SharedHomeViewModel mViewModel;
+    Activity mActivity;
 
     /*
      * Constructor for adapter
      */
     public RequirementAdapter(Context context, ArrayList<Course> courses, String category,
-                              FragmentManager fragmentManager, SharedHomeViewModel viewModel) {
+                              FragmentManager fragmentManager, SharedHomeViewModel viewModel, Activity activity) {
         this.mInflater = LayoutInflater.from(context);
         this.courses = courses;
         mContext = context;
         mCategory = category;
         mFragmentManager = fragmentManager;
         mViewModel = viewModel;
+        mActivity = activity;
     }
 
     /*
@@ -89,7 +92,7 @@ public class RequirementAdapter extends RecyclerView.Adapter<RequirementAdapter.
         courseBundle.putString("Code", courseCode);
         courseBundle.putString("Grading Option", gradingOption);
         DialogFragment dialog = new RemoveCourseDialog
-                (mContext, courseBundle, this, mPosition, courses.size(), mViewModel);
+                (mContext, courseBundle, this, mPosition, courses.size(), mViewModel, mActivity);
         dialog.show(mFragmentManager, "Remove Course");
         RemoveCourseDialog updateDialog = (RemoveCourseDialog) dialog;
         if (updateDialog.getCourseRemoved()) {
