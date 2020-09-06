@@ -1,5 +1,7 @@
 package com.example.degreeplanner.ui.requirements;
 
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.ViewModel;
 
 import com.example.degreeplanner.classes.Course;
@@ -7,6 +9,8 @@ import com.example.degreeplanner.classes.RequirementCategory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class RequirementsViewModel extends ViewModel {
@@ -21,8 +25,36 @@ public class RequirementsViewModel extends ViewModel {
     public static ArrayList<RequirementCategory> allReqCats =
             new ArrayList<>(Arrays.asList(unplannedCourses, majorCourses, minorCourses, collegeCourses, universityCourses));
 
+    // Getters for Requirement Category objects
+    public RequirementCategory getMajorCoursesObject() { return majorCourses; }
+    public RequirementCategory getMinorCoursesObject() { return minorCourses; }
+    public RequirementCategory getCollegeCourseObject() { return collegeCourses; }
+    public RequirementCategory getUniversityCoursesObject() { return universityCourses; }
+    public RequirementCategory getUnplannedCoursesObject() { return unplannedCourses; }
 
 
+    // Setters for Requirement Category objects
+    public void setMajorCoursesObject(RequirementCategory newMajorCourses) {
+        majorCourses = newMajorCourses;
+    }
+
+    public void setMinorCoursesObject(RequirementCategory newMinorCourses) {
+        minorCourses = newMinorCourses;
+    }
+
+    public void setCollegeCoursesObject(RequirementCategory newCollegeCourses) {
+        collegeCourses = newCollegeCourses;
+    }
+
+    public void setUniversityCoursesObject(RequirementCategory newUniversityCourses) {
+        universityCourses = newUniversityCourses;
+    }
+
+    public void setUnplannedCoursesObject(RequirementCategory newUnplannedCourses) {
+        unplannedCourses = newUnplannedCourses;
+    }
+
+    // Getters for course lists of requirement category objects
     public ArrayList<Course> getAllCourses() {
         return unplannedCourses.getCourses();
     }

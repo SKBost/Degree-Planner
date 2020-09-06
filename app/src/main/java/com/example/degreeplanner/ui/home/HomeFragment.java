@@ -1,6 +1,8 @@
 package com.example.degreeplanner.ui.home;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,19 +23,28 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.degreeplanner.R;
+import com.example.degreeplanner.classes.Checklist;
 import com.example.degreeplanner.classes.Course;
+import com.example.degreeplanner.classes.RequirementCategory;
+import com.example.degreeplanner.classes.Schedule;
 import com.example.degreeplanner.ui.requirements.RequirementsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
 
     private SharedHomeViewModel mViewModel;
     TabAdapter tabAdapter;
     ViewPager2 viewPager;
+    SharedPreferences mPrefs;
+    SharedPreferences.Editor prefsEditor;
+    Gson gson = new Gson();
 
     private static final String[] tabNames = new String[] {"Checklist", "Quarter Plan"};
 
@@ -48,15 +59,13 @@ public class HomeFragment extends Fragment {
         viewPager = root.findViewById(R.id.home_view_pager);
         viewPager.setAdapter(tabAdapter);
 
+        // Instantiate shared preferences variables
+        mPrefs = getActivity().getPreferences(MODE_PRIVATE);
+        getInfo();
 
         // Open popup window once button is pressed
         FloatingActionButton editPlanBtn = root.findViewById(R.id.edit_quarter_plan_button);
-        editPlanBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                openEditQuarterPlan(container, v);
-            }
-        });
+        editPlanBtn.setOnClickListener(v -> openEditQuarterPlan(container, v));
         return root;
     }
 
@@ -70,6 +79,16 @@ public class HomeFragment extends Fragment {
                 (tab, position) -> tab.setText(tabNames[position])
         ).attach();
     }
+
+    /*
+     * Get info again if it has changed
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        getInfo();
+    }
+
 
     /*
      * Function to open the edit quarter plan popup on click
@@ -124,36 +143,35 @@ public class HomeFragment extends Fragment {
     public void whenPlanned(View view, PopupWindow popupWindow, Spinner myCourse,
                             Spinner myQuarter, EditText myYear, CheckBox myCompletion) {
         Button planButton = view.findViewById(R.id.plan_button);
-        planButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                String myCourseString = myCourse.getSelectedItem().toString();
-                String myQuarterString = myQuarter.getSelectedItem().toString();
-                // Save course to correct quarter
-                Course c = mViewModel.addCourseToQuarter(myCourseString, myQuarterString,
-                        Integer.parseInt(myYear.getText().toString()));
-                // Add as a completed course if checked
-                if (myCompletion.isChecked()) {
-                    // Find which category course should be added to
-                    if (RequirementsViewModel.majorCourses.containsCourse(c)) {
-                        mViewModel.getChecklist("major").addCompletedCourse(c);
-                    }
-                    if (RequirementsViewModel.minorCourses.containsCourse(c)) {
-                        mViewModel.getChecklist("minor").addCompletedCourse(c);
-                    }
-                    if (RequirementsViewModel.collegeCourses.containsCourse(c)) {
-                        mViewModel.getChecklist("college").addCompletedCourse(c);
-                    }
-                    if (RequirementsViewModel.universityCourses.containsCourse(c)) {
-                        mViewModel.getChecklist("university").addCompletedCourse(c);
-                    }
+        planButton.setOnClickListener(v -> {
+            String myCourseString = myCourse.getSelectedItem().toString();
+            String myQuarterString = myQuarter.getSelectedItem().toString();
+            // Save course to correct quarter
+            Course c = mViewModel.addCourseToQuarter(myCourseString, myQuarterString,
+                    Integer.parseInt(myYear.getText().toString()));
+            // Add as a completed course if checked
+            if (myCompletion.isChecked()) {
+                // Find which category course should be added to
+                if (RequirementsViewModel.majorCourses.containsCourse(c)) {
+                    mViewModel.getChecklist("major").addCompletedCourse(c);
                 }
-                // Remove class from list of plannable courses and show warning if prereqs not met
-                RequirementsViewModel.unplannedCourses.removeCourse(c);
-                checkPrereqs(c);
-                // Close popup
-                popupWindow.dismiss();
+                if (RequirementsViewModel.minorCourses.containsCourse(c)) {
+                    mViewModel.getChecklist("minor").addCompletedCourse(c);
+                }
+                if (RequirementsViewModel.collegeCourses.containsCourse(c)) {
+                    mViewModel.getChecklist("college").addCompletedCourse(c);
+                }
+                if (RequirementsViewModel.universityCourses.containsCourse(c)) {
+                    mViewModel.getChecklist("university").addCompletedCourse(c);
+                }
             }
+            // Remove class from list of plannable courses and show warning if prereqs not met
+            RequirementsViewModel.unplannedCourses.removeCourse(c);
+            checkPrereqs(c);
+            // Add new info to shared preferences
+            setInfo();
+            // Close popup
+            popupWindow.dismiss();
         });
     }
 
@@ -183,6 +201,82 @@ public class HomeFragment extends Fragment {
             Toast toast = Toast.makeText(getContext(), warningText, Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    /*
+     * Get any locally stored information from shared preferences
+     */
+    public void getInfo() {
+        // Get info from the schedule
+        String json = mPrefs.getString("My Schedule", "");
+        if (!json.equals("")) {
+            Schedule mNewSchedule = gson.fromJson(json, Schedule.class);
+            if (mNewSchedule.getQuarters().size() != 0) {
+                mViewModel.setMySchedule(mNewSchedule);
+            }
+        }
+        // Get info from major checklist
+        json = mPrefs.getString("My Major Checklist", "");
+        if (!json.equals("")) {
+            Log.e("Home Fragment", "Found major checklist");
+            Checklist mNewChecklist = gson.fromJson(json, Checklist.class);
+            if (mNewChecklist.getRequirementCategories().size() != 0) {
+                mViewModel.setMyChecklists("major", mNewChecklist);
+            }
+        }
+        // Get info from minor checklist
+        json = mPrefs.getString("My Minor Checklist", "");
+        if (!json.equals("")) {
+            Checklist mNewChecklist = gson.fromJson(json, Checklist.class);
+            if (mNewChecklist.getRequirementCategories().size() != 0) {
+                mViewModel.setMyChecklists("minor", mNewChecklist);
+            }
+        }
+        // Get info from college checklist
+        json = mPrefs.getString("My College Checklist", "");
+        if (!json.equals("")) {
+            Checklist mNewChecklist = gson.fromJson(json, Checklist.class);
+            if (mNewChecklist.getRequirementCategories().size() != 0) {
+                mViewModel.setMyChecklists("college", mNewChecklist);
+            }
+        }
+        // Get info from university checklist
+        json = mPrefs.getString("My University Checklist", "");
+        if (!json.equals("")) {
+            Checklist mNewChecklist = gson.fromJson(json, Checklist.class);
+            if (mNewChecklist.getRequirementCategories().size() != 0) {
+                mViewModel.setMyChecklists("university", mNewChecklist);
+            }
+        }
+        // Get info from unplanned courses
+        json = mPrefs.getString("My Unplanned Courses", "");
+        if (!json.equals("")) {
+            RequirementCategory mNewRequirementCategory = gson.fromJson(json, RequirementCategory.class);
+            if (mNewRequirementCategory.getCourses().size() != 0) {
+                RequirementsViewModel.unplannedCourses = mNewRequirementCategory;
+            }
+        }
+    }
+
+    /*
+     * Store any new information to shared preferences
+     */
+    public void setInfo() {
+        String jsonSchedule = gson.toJson(mViewModel.getMySchedule());
+        String jsonMajor = gson.toJson(mViewModel.getChecklist("major"));
+        String jsonMinor = gson.toJson(mViewModel.getChecklist("minor"));
+        String jsonCollege = gson.toJson(mViewModel.getChecklist("college"));
+        String jsonUniversity = gson.toJson(mViewModel.getChecklist("university"));
+        String jsonUnplanned = gson.toJson(RequirementsViewModel.unplannedCourses);
+        prefsEditor = mPrefs.edit();
+        prefsEditor.putString("My Schedule", jsonSchedule);
+        prefsEditor.putString("My Major Checklist", jsonMajor);
+        Log.e("Home Fragment", "Succesfully set major checklist");
+        prefsEditor.putString("My Minor Checklist", jsonMinor);
+        prefsEditor.putString("My College Checklist", jsonCollege);
+        prefsEditor.putString("My University Checklist", jsonUniversity);
+        prefsEditor.putString("My Unplanned Courses", jsonUnplanned);
+        prefsEditor.commit();
     }
 }
 

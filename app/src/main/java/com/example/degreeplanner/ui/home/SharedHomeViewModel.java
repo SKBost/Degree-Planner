@@ -20,6 +20,7 @@ public class SharedHomeViewModel extends ViewModel {
     protected Schedule mySchedule = new Schedule();
     int yearEntered = 2019;
     int numYears = 4;
+
     // Checklists for all categories
     Checklist majorChecklist = new Checklist(new ArrayList<RequirementCategory>
             (Collections.singletonList(RequirementsViewModel.majorCourses)), new ArrayList<Course>());
@@ -68,6 +69,34 @@ public class SharedHomeViewModel extends ViewModel {
      */
     public int getMyYearEntered() {
         return yearEntered;
+    }
+
+    /*
+     * Setter method for the schedule
+     */
+    public void setMySchedule(Schedule newSchedule) {
+        mySchedule = newSchedule;
+    }
+
+    /*
+     * Setter method for checklists
+     */
+    public void setMyChecklists(String category, Checklist newChecklist) {
+        switch (category) {
+            case "major" :
+                majorChecklist = newChecklist;
+                break;
+            case "minor" :
+                minorChecklist = newChecklist;
+                break;
+            case "college" :
+                collegeChecklist = newChecklist;
+                break;
+            case "university" :
+                universityChecklist = newChecklist;
+                break;
+            default:
+        }
     }
 
     /*
@@ -144,7 +173,6 @@ public class SharedHomeViewModel extends ViewModel {
             for (Course removedCourse: q.getCourses()) {
                 if (removedCourse.compareCourses(course)) {
                     q.removeCourse(removedCourse);
-                    Log.e("SharedViewModel", "in remove course method");
                 }
             }
         }

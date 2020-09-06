@@ -62,12 +62,7 @@ public class ChecklistTabFragment extends Fragment {
 
         // Open suggested courses dialog once button is pressed
         ImageButton dialogBtn = root.findViewById(R.id.suggested_courses_button);
-        dialogBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                openSuggestedCourses();
-            }
-        });
+        dialogBtn.setOnClickListener(v -> openSuggestedCourses());
 
         return root;
     }
@@ -173,7 +168,7 @@ public class ChecklistTabFragment extends Fragment {
         ArrayList<Object> myUncompCourses = new ArrayList<>();
         for (Course c: allCoursesToDisplay) {
             if (checklist.getRequirementCategories().get(0).containsCourse(c)) {
-                if (checklist.getCompletedCourses().contains(c)) {
+                if (separateCompCourseHelper(checklist.getCompletedCourses(), c)) {
                     myCompCourses.add(c);
                 } else {
                     myUncompCourses.add(c);
@@ -184,6 +179,15 @@ public class ChecklistTabFragment extends Fragment {
             return myCompCourses;
         }
         return myUncompCourses;
+    }
+
+    public boolean separateCompCourseHelper(ArrayList<Course> mArrayCourses, Course mCourse) {
+        for (Course c: mArrayCourses) {
+            if (c.getDept().equals(mCourse.getDept()) && c.getCode().equals(mCourse.getCode())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
