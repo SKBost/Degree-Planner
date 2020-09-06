@@ -2,7 +2,6 @@ package com.example.degreeplanner.ui.home;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -169,6 +168,7 @@ public class HomeFragment extends Fragment {
             RequirementsViewModel.unplannedCourses.removeCourse(c);
             checkPrereqs(c);
             // Add new info to shared preferences
+            mViewModel.resetChecklists();
             setInfo();
             // Close popup
             popupWindow.dismiss();
@@ -218,7 +218,6 @@ public class HomeFragment extends Fragment {
         // Get info from major checklist
         json = mPrefs.getString("My Major Checklist", "");
         if (!json.equals("")) {
-            Log.e("Home Fragment", "Found major checklist");
             Checklist mNewChecklist = gson.fromJson(json, Checklist.class);
             if (mNewChecklist.getRequirementCategories().size() != 0) {
                 mViewModel.setMyChecklists("major", mNewChecklist);
@@ -271,7 +270,6 @@ public class HomeFragment extends Fragment {
         prefsEditor = mPrefs.edit();
         prefsEditor.putString("My Schedule", jsonSchedule);
         prefsEditor.putString("My Major Checklist", jsonMajor);
-        Log.e("Home Fragment", "Succesfully set major checklist");
         prefsEditor.putString("My Minor Checklist", jsonMinor);
         prefsEditor.putString("My College Checklist", jsonCollege);
         prefsEditor.putString("My University Checklist", jsonUniversity);

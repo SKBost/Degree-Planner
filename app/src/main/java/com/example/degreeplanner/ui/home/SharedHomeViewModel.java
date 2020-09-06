@@ -1,6 +1,5 @@
 package com.example.degreeplanner.ui.home;
 
-import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
@@ -115,6 +114,21 @@ public class SharedHomeViewModel extends ViewModel {
 
     public void setNumYears(int myNumYears) {
         numYears = myNumYears;
+    }
+
+    /*
+     * Method to reset the requirement categories for the checklists
+     */
+    public void resetChecklists() {
+        // Reset major checklist
+        majorChecklist.setRequirementCategories(new ArrayList<RequirementCategory>
+                (Collections.singletonList(RequirementsViewModel.majorCourses)));
+        minorChecklist.setRequirementCategories(new ArrayList<RequirementCategory>
+                (Collections.singletonList(RequirementsViewModel.minorCourses)));
+        collegeChecklist.setRequirementCategories(new ArrayList<RequirementCategory>
+                (Collections.singletonList(RequirementsViewModel.collegeCourses)));
+        universityChecklist.setRequirementCategories(new ArrayList<RequirementCategory>
+                (Collections.singletonList(RequirementsViewModel.universityCourses)));
     }
 
     /*
